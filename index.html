@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Archivo+Black&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Avledet av Sikris egne merkevariabler, se sikri.no */
+    --ink: #1B116E;        /* Sikri primary,  15.53:1 på hvit */
+    --ink-2: #5F589A;      /* sekundærtekst,   6.27:1 på hvit */
+    --on-dark: #A4A0C5;    /* dempet på indigo, 6.22:1 */
+    --mint: #6BEDB5;       /* aksent, kun på indigo, 10.66:1 */
+    --line: #DFDEEB;       /* rammer og skillelinjer */
+    --surface-2: #F4F6FA;  /* Sikris lyse flate */
+    --br: 6px;             /* Sikri bruker 6px overalt */
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 128px; }
+  body { margin: 0; background: var(--surface-2); color: var(--ink); font-family: Archivo, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+  a:visited { color: #4A3F87; }
+  a[href^="#"] { text-decoration: none; font-weight: 500; }
+  a:hover { color: var(--ink); }
+  ::selection { background: var(--ink); color: #fff; }
+  /* Malen skal aldri vises rå. Runtime bytter ut <x-dc> med #dc-root. */
+  x-dc { display: none; }
+  #dc-fallback { display: none; }
+</style>
+</helmet>
+<div style="min-height: 100vh">
+
+  <header style="position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line)">
+    <div style="max-width: 1160px; margin: 0 auto; padding: 12px 32px; min-height: 72px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+      <a href="#hjem" style="display: flex; align-items: center; gap: 14px; color: var(--ink); flex: none">
+        <img src="./sikri-logo.webp" alt="Sikri" style="height: 34px; width: auto; display: block" />
+        <span style="width: 1px; height: 28px; background: var(--line); display: block" aria-hidden="true"></span>
+        <span style="display: flex; align-items: baseline; gap: 8px">
+          <span style="font-family: 'Archivo Black', Archivo, sans-serif; font-size: 26px; letter-spacing: 0.01em; white-space: nowrap">Elements</span>
+        </span>
+      </a>
+      <nav style="display: flex; align-items: center; gap: 2px; margin-left: auto; flex-wrap: wrap">
+        <a href="#hjem" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">{{ t.navHome }}</a>
+        <a href="#om-meg" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">{{ t.navAbout }}</a>
+        <a href="#om-sikri" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">{{ t.navSikri }}</a>
+        <a href="#oppgave" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">{{ t.navTasks }}</a>
+        <a href="#dagbok" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">{{ t.navDiary }}</a>
+        <a href="#status-1" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">Status 1</a>
+        <a href="#status-2" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">Status 2</a>
+        <a href="#refleksjon" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">{{ t.navReflection }}</a>
+        <a href="#kontakt" style="padding: 8px 11px; border-radius: var(--br); color: var(--ink-2); font-size: 13.5px; font-weight: 500; white-space: nowrap" style-hover="background: var(--surface-2); color: var(--ink)">{{ t.navContact }}</a>
+      </nav>
+      <button type="button" onClick="{{ toggleLang }}" style="flex: none; margin-left: 6px; padding: 8px 14px; border-radius: var(--br); border: 1px solid var(--line); background: transparent; color: var(--ink); font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; cursor: pointer" style-hover="background: var(--ink); border-color: var(--ink); color: #fff">{{ t.langLabel }}</button>
+    </div>
+  </header>
+
+  <section id="hjem" style="background: var(--ink); color: #fff; padding: 96px 32px 120px; position: relative; overflow: hidden">
+    <div style="max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 64px; align-items: end">
+      <div>
+        <div style="display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border-radius: var(--br); background: rgba(107,237,181,0.14); border: 1px solid rgba(107,237,181,0.45); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--mint)">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--mint); display: inline-block"></span>
+          {{ t.heroBadge }}
+        </div>
+        <h1 style="margin: 26px 0 0; font-family: 'Archivo Black', Archivo, sans-serif; font-weight: 400; font-size: 60px; line-height: 1.08; letter-spacing: -1px">Amina Mustafa</h1>
+        <p style="margin: 22px 0 0; font-size: 20px; line-height: 1.55; color: var(--on-dark); max-width: 44ch; text-wrap: pretty">{{ t.heroLead }}</p>
+        <div style="display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap">
+          <a href="#oppgave" style="padding: 14px 24px; border-radius: var(--br); background: var(--mint); color: var(--ink); font-weight: 700; font-size: 15px" style-hover="background: #fff; color: var(--ink)">{{ t.ctaTasks }}</a>
+          <a href="#dagbok" style="padding: 14px 24px; border-radius: var(--br); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-weight: 600; font-size: 15px" style-hover="background: rgba(255,255,255,0.1)">{{ t.ctaDiary }}</a>
+        </div>
+      </div>
+      <dl style="margin: 0; display: grid; gap: 1px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--br); overflow: hidden">
+        <div style="background: rgba(27,17,110,0.55); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+          <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factCompany }}</dt>
+          <dd style="margin: 0; font-size: 18px; font-weight: 600">Sikri AS</dd>
+        </div>
+        <div style="background: rgba(27,17,110,0.55); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+          <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factRole }}</dt>
+          <dd style="margin: 0; font-size: 18px; font-weight: 600">Fullstack</dd>
+        </div>
+        <div style="background: rgba(27,17,110,0.55); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+          <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factPeriod }}</dt>
+          <dd style="margin: 0; font-size: 18px; font-weight: 600">{{ t.factPeriodValue }}</dd>
+        </div>
+        <div style="background: rgba(27,17,110,0.55); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+          <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factDays }}</dt>
+          <dd style="margin: 0; font-size: 18px; font-weight: 600">{{ t.factDaysValue }}</dd>
+        </div>
+        <div style="background: var(--mint); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+          <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink)">{{ t.factHours }}</dt>
+          <dd style="margin: 0; font-size: 18px; font-weight: 700; color: var(--ink)">270 t</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <main style="position: relative; z-index: 1; max-width: 1160px; margin: -56px auto 0; padding: 0 32px 120px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px">
+
+    <article id="om-meg" style="background: #fff; border-radius: var(--br); padding: 44px 48px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px">
+        <span style="width: 28px; height: 2px; background: var(--ink); display: block"></span>
+        <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.navAbout }}</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 48px; align-items: start">
+        <div>
+          <p style="margin: 0 0 18px; font-size: 21px; line-height: 1.5; color: var(--ink); text-wrap: pretty">{{ t.aboutLead }}</p>
+          <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.aboutBody }}</p>
+        </div>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 10px">
+          <li style="padding: 14px 18px; background: var(--surface-2); border-radius: var(--br); font-size: 15px; color: var(--ink)"><strong>UiA Kristiansand</strong><br /><span style="color: var(--ink-2)">{{ t.aboutStudy }}</span></li>
+          <li style="padding: 14px 18px; background: var(--surface-2); border-radius: var(--br); font-size: 15px; color: var(--ink)"><strong>{{ t.aboutInterestTitle }}</strong><br /><span style="color: var(--ink-2)">{{ t.aboutInterest }}</span></li>
+          <li style="padding: 14px 18px; background: var(--surface-2); border-radius: var(--br); font-size: 15px; color: var(--ink)"><strong>{{ t.aboutGoalTitle }}</strong><br /><span style="color: var(--ink-2)">{{ t.aboutGoal }}</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <article id="om-sikri" style="background: #fff; border-radius: var(--br); padding: 44px 48px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px">
+        <span style="width: 28px; height: 2px; background: var(--ink); display: block"></span>
+        <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.navSikri }}</h2>
+      </div>
+      <p style="margin: 0 0 24px; font-size: 21px; line-height: 1.5; max-width: 70ch; text-wrap: pretty">{{ t.sikriLead }}</p>
+      <p style="margin: 0 0 30px; font-size: 16px; line-height: 1.7; color: var(--ink-2); max-width: 78ch; text-wrap: pretty">{{ t.sikriBody }}</p>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+        <div style="border: 1px solid var(--line); border-radius: var(--br); padding: 20px 22px">
+          <div style="font-family: 'Archivo Black', Archivo, sans-serif; font-size: 28px; letter-spacing: -0.5px; color: var(--ink)">Elements</div>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: var(--ink-2)">{{ t.sikriCard1 }}</p>
+        </div>
+        <div style="border: 1px solid var(--line); border-radius: var(--br); padding: 20px 22px">
+          <div style="font-family: 'Archivo Black', Archivo, sans-serif; font-size: 28px; letter-spacing: -0.5px; color: var(--ink)">{{ t.sikriCard2Title }}</div>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: var(--ink-2)">{{ t.sikriCard2 }}</p>
+        </div>
+        <div style="border: 1px solid var(--line); border-radius: var(--br); padding: 20px 22px">
+          <div style="font-family: 'Archivo Black', Archivo, sans-serif; font-size: 28px; letter-spacing: -0.5px; color: var(--ink)">{{ t.sikriCard3Title }}</div>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: var(--ink-2)">{{ t.sikriCard3 }}</p>
+        </div>
+      </div>
+    </article>
+
+    <article id="oppgave" style="background: var(--ink); color: #fff; border-radius: var(--br); padding: 48px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px">
+        <span style="width: 28px; height: 2px; background: var(--mint); display: block"></span>
+        <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mint); font-weight: 700">{{ t.navTasks }}</h2>
+      </div>
+      <p style="margin: 0 0 22px; font-family: 'Archivo Black', Archivo, sans-serif; font-size: 38px; line-height: 1.25; letter-spacing: -1px; max-width: 24ch">{{ t.taskLead }}</p>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: start">
+        <div>
+          <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.75; color: var(--on-dark); text-wrap: pretty">{{ t.taskBody1 }}</p>
+          <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.75; color: var(--on-dark); text-wrap: pretty">{{ t.taskBody2 }}</p>
+          <p style="margin: 0; font-size: 16px; line-height: 1.75; color: var(--on-dark); text-wrap: pretty">{{ t.taskBody3 }}</p>
+        </div>
+        <div>
+          <h3 style="margin: 0 0 14px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-dark); font-weight: 600">{{ t.stackTitle }}</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px">
+            <sc-for list="{{ stack }}" as="tech" hint-placeholder-count="7">
+              <span style="padding: 8px 14px; border-radius: var(--br); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); font-size: 14px; font-weight: 500">{{ tech }}</span>
+            </sc-for>
+          </div>
+          <h3 style="margin: 0 0 14px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-dark); font-weight: 600">{{ t.goalsTitle }}</h3>
+          <ol style="margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 15px; line-height: 1.6; color: var(--on-dark)">
+            <sc-for list="{{ goals }}" as="goal" hint-placeholder-count="4">
+              <li>{{ goal }}</li>
+            </sc-for>
+          </ol>
+        </div>
+      </div>
+    </article>
+
+    <article id="dagbok" style="background: #fff; border-radius: var(--br); padding: 44px 48px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px">
+        <span style="width: 28px; height: 2px; background: var(--ink); display: block"></span>
+        <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.navDiary }}</h2>
+      </div>
+      <p style="margin: 0 0 30px; font-size: 15px; color: var(--ink-2)">{{ t.diaryHint }}</p>
+
+      <div style="position: relative; overflow-x: auto; padding-bottom: 22px; margin-bottom: 26px">
+        <div style="display: flex; align-items: flex-start; min-width: 100%">
+          <sc-for list="{{ weeks }}" as="w" hint-placeholder-count="19">
+            <button type="button" onClick="{{ w.select }}" style="{{ w.btnStyle }}">
+              <span style="{{ w.lineStyle }}"></span>
+              <span style="{{ w.dotStyle }}"></span>
+              <span style="{{ w.labelStyle }}">{{ w.label }}</span>
+              <span style="font-size: 11px; color: var(--ink-2); margin-top: 2px">{{ w.dates }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; max-height: 620px; overflow-y: auto; padding-right: 12px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 12px">
+          <h3 style="margin: 0; font-size: 22px; font-weight: 600">{{ activeTitle }}</h3>
+          <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ activeRange }}</span>
+        </div>
+        <sc-for list="{{ activeEntries }}" as="e" hint-placeholder-count="2">
+          <div style="display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 28px; padding: 20px 0; border-bottom: 1px solid var(--line)">
+            <div>
+              <div style="font-size: 15px; font-weight: 600; color: var(--ink)">{{ e.day }}</div>
+              <div style="font-size: 13px; color: var(--ink-2); margin-top: 2px">{{ e.date }}</div>
+              <div style="font-size: 12px; color: var(--ink); font-weight: 600; margin-top: 8px">{{ e.time }}</div>
+            </div>
+            <div>
+              <div style="font-size: 16px; font-weight: 600; margin-bottom: 6px">{{ e.title }}</div>
+              <p style="margin: 0 0 10px; font-size: 15px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ e.text }}</p>
+              <div style="font-size: 14px; color: var(--ink-2)"><em>{{ e.next }}</em></div>
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ activeEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 46px; text-align: center; background: var(--surface-2); border-radius: var(--br); color: var(--ink-2); font-size: 15px">{{ t.diaryEmpty }}</div>
+        </sc-if>
+      </div>
+    </article>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px">
+      <article id="status-1" style="background: #fff; border-radius: var(--br); padding: 40px 44px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px">
+          <h2 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.01em">Status 1</h2>
+          <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.status1When }}</span>
+        </div>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body }}</p>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; color: var(--ink-2)">
+          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status1P1 }}</li>
+          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status1P2 }}</li>
+          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status1P3 }}</li>
+        </ul>
+      </article>
+      <article id="status-2" style="background: #fff; border-radius: var(--br); padding: 40px 44px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px">
+          <h2 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.01em">Status 2</h2>
+          <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.status2When }}</span>
+        </div>
+        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status2Body }}</p>
+        <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; color: var(--ink-2)">
+          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status2P1 }}</li>
+          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status2P2 }}</li>
+          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status2P3 }}</li>
+        </ul>
+      </article>
+    </div>
+
+    <article id="refleksjon" style="background: #fff; border-radius: var(--br); padding: 44px 48px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px">
+        <span style="width: 28px; height: 2px; background: var(--ink); display: block"></span>
+        <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.navReflection }}</h2>
+      </div>
+      <p style="margin: 0 0 22px; font-family: 'Archivo Black', Archivo, sans-serif; font-size: 38px; line-height: 1.25; letter-spacing: -1px; max-width: 26ch">{{ t.reflectLead }}</p>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px">
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty">{{ t.reflectBody1 }}</p>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty">{{ t.reflectBody2 }}</p>
+      </div>
+    </article>
+
+    <article id="kontakt" style="background: #fff; border-radius: var(--br); padding: 44px 48px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: center">
+      <div>
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 18px">
+          <span style="width: 28px; height: 2px; background: var(--ink); display: block"></span>
+          <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.navContact }}</h2>
+        </div>
+        <p style="margin: 0; font-size: 20px; line-height: 1.5; color: var(--ink); text-wrap: pretty">{{ t.contactLead }}</p>
+      </div>
+      <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 10px">
+        <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; background: var(--surface-2); border-radius: var(--br); font-size: 15px">
+          <span style="color: var(--ink-2)">E-post</span><a href="mailto:aminm@uia.no">aminam@uia.no</a>
+        </li>
+        <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; background: var(--surface-2); border-radius: var(--br); font-size: 15px">
+          <span style="color: var(--ink-2)">LinkedIn</span><a href="https://www.linkedin.com/in/amina-mustafa-547a23350/">Amina Mustafa</a>
+        </li>
+        <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; background: var(--surface-2); border-radius: var(--br); font-size: 15px">
+          <span style="color: var(--ink-2)">{{ t.contactUia }}</span><a<span style="font-weight: 600">UiA Kristiansand</span>
+        </li>
+        <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; background: var(--surface-2); border-radius: var(--br); font-size: 15px">
+          <span style="color: var(--ink-2)">{{ t.contactCompany }}</span><a href="https://www.sikri.no/">sikri.no</a>
+        </li>
+      </ul>
+    </article>
+  </main>
+
+  <footer style="background: var(--ink); color: var(--on-dark); padding: 34px 32px">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 13px">
+      <span>Amina Mustafa · {{ t.footerCourse }}</span>
+      <span>{{ t.footerNote }}</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+
+<div id="dc-fallback" role="alert">
+  <div style="max-width: 560px; margin: 0 auto; padding: 96px 32px; font-family: Archivo, system-ui, sans-serif; color: var(--ink)">
+    <span style="width: 28px; height: 2px; background: var(--ink); display: block; margin-bottom: 22px"></span>
+    <h1 style="margin: 0 0 6px; font-family: 'Archivo Black', Archivo, sans-serif; font-weight: 400; font-size: 40px; line-height: 1.1">Amina Mustafa</h1>
+    <p style="margin: 0 0 28px; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 600">Praksis hos Sikri AS</p>
+    <p style="margin: 0 0 14px; font-size: 17px; line-height: 1.6">Siden klarte ikke å laste. Innholdet krever JavaScript og tilgang til unpkg.com, som enkelte bedriftsnett blokkerer.</p>
+    <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.6; color: var(--ink-2)">This page failed to load. It needs JavaScript and access to unpkg.com, which some corporate networks block. Try reloading, or open it on another network.</p>
+    <p style="margin: 0; font-size: 15px; line-height: 1.9; color: var(--ink-2)">
+      Ta kontakt direkte: <a href="mailto:aminm@uia.no" style="font-weight: 600">aminm@uia.no</a><br />
+      Praksisbedrift: <a href="https://www.sikri.no/" style="font-weight: 600">sikri.no</a>
+    </p>
+  </div>
+</div>
+
+<noscript>
+  <style>#dc-fallback { display: block !important; }</style>
+</noscript>
+
+<script>
+  // Runtime bytter ut <x-dc> med #dc-root. Kommer den aldri, vis fallback
+  // i stedet for en side full av rå {{ }}-plassholdere.
+  setTimeout(function () {
+    if (!document.getElementById("dc-root")) {
+      var el = document.getElementById("dc-fallback");
+      if (el) el.style.display = "block";
+    }
+  }, 5000);
+</script>
+
+<script type="text/x-dc" data-dc-script data-props="{}">
+const COPY = {
+  no: {
+    langLabel: "EN", navHome: "Hjem", navAbout: "Om meg", navSikri: "Om Sikri", navTasks: "Oppgavebeskrivelse",
+    navDiary: "Dagbok", navReflection: "Refleksjon", navContact: "Kontakt",
+    heroBadge: "Praksis høst 2026 · Sikri AS",
+    heroLead: "Fullstackutvikler i praksis hos Sikri, og siste års bachelorstudent i IT og informasjonssystemer ved UiA Kristiansand.",
+    ctaTasks: "Se oppgavebeskrivelse", ctaDiary: "Til dagboken",
+    factCompany: "Bedrift", factRole: "Rolle", factPeriod: "Periode", factPeriodValue: "Uke 35–47 · 2026", factDays: "Dager", factDaysValue: "Torsdag & fredag", factHours: "Omfang",
+    aboutLead: "Jeg heter Amina Mustafa og går siste år på bachelor i IT og informasjonssystemer ved UiA Kristiansand.",
+    aboutBody: "Jeg er glad i både koding og design, og trives best når de to henger sammen når en løsning både fungerer teknisk og er god å bruke. Jeg er sosial og liker å jobbe tett med andre, enten det er i utviklingsteam, med testere eller mot folk som faktisk skal bruke systemet. Praksisen hos Sikri er en mulighet til å ta med meg det jeg har lært på studiet inn i et reelt utviklingsmiljø.",
+    aboutStudy: "Bachelor i IT og informasjonssystemer, siste år",
+    aboutInterestTitle: "Interesser", aboutInterest: "Koding, design og samarbeid",
+    aboutGoalTitle: "Mål med praksisen", aboutGoal: "Bli en tryggere fullstackutvikler i et profesjonelt team",
+    sikriLead: "Sikri leverer sak- og arkivløsninger til norsk offentlig sektor, med Elements som hovedprodukt.",
+    sikriBody: "Kommuner, fylkeskommuner og statlige virksomheter bruker løsningene til å håndtere dokumentasjon, saksbehandling og arkiv etter norske krav til arkivering og personvern. Det betyr systemer som må være stabile over tid, ha høy datakvalitet og tåle mange samtidige brukere en god arena for å lære hvordan profesjonell programvareutvikling faktisk drives.",
+    sikriCard1: "Sak- og arkivsystemet som er kjernen i produktporteføljen.",
+    sikriCard2Title: "Offentlig", sikriCard2: "Kunder i kommuner, fylkeskommuner og staten.",
+    sikriCard3Title: "Skala", sikriCard3: "Krav til sikkerhet, sporbarhet og lang levetid på løsningene.",
+    taskLead: "Fullstackutvikling: fra små feilrettinger til større funksjonalitet.",
+    taskBody1: "I praksisperioden jobber jeg som fullstackutvikler i et utviklingsteam hos Sikri. Backend skrives i C# og .NET, frontend i React med TypeScript, og data ligger i MSSQL. Jeg jobber gjennom hele laget: databasemodell, API-endepunkt og grensesnittet brukeren faktisk ser.",
+    taskBody2: "Oppgavene starter i det små — feilretting, mindre forbedringer i eksisterende komponenter og oppsett av utviklingsmiljø — og bygger seg gradvis opp mot større oppgaver med egen funksjonalitet: nye endepunkt, spørringer mot databasen og nye visninger i frontend. Underveis er jeg med på kodegjennomgang, testing og den daglige rytmen i teamet.",
+    taskBody3: "Slik det ser ut nå er dette planen. Beskrivelsen oppdateres etter hvert som oppgavene blir tydeligere, og status underveis dokumenteres i Status 1, Status 2 og dagboken.",
+    stackTitle: "Teknologi", goalsTitle: "Læringsmål",
+    status1When: "Ca. uke 39", status2When: "Ca. uke 46",
+    status1Body: "Første statusrapport til UiA. Oppsummerer starten av praksisen: hvordan jeg kom i gang, hvilke oppgaver jeg har fått, og hva som har vært lærerikt eller krevende så langt.",
+    status1P1: "Oppstart, verktøy og tilganger", status1P2: "Første oppgaver i kodebasen", status1P3: "Justering av læringsmål",
+    status2Body: "Andre statusrapport. Ser på hvordan oppgavene har vokst i omfang, hva jeg har levert, og hva jeg vil prioritere i den siste delen av perioden.",
+    status2P1: "Større oppgaver og egen funksjonalitet", status2P2: "Samarbeid, kodegjennomgang og testing", status2P3: "Veien mot avslutning av perioden",
+    diaryHint: "Velg uke i tidslinjen for å se loggen. Praksisdagene er torsdag og fredag.",
+    diaryEmpty: "Ingen logg lagt inn for denne uken ennå.",
+    reflectLead: "Refleksjon skrives mot slutten av perioden.",
+    reflectBody1: "Her kommer en samlet refleksjon over praksisperioden: hva jeg har lært om fullstackutvikling i praksis, hvordan det er å jobbe i et team med reelle kunder og krav, og hvordan studiet henger sammen med arbeidshverdagen hos Sikri.",
+    reflectBody2: "Jeg vil også se på hva jeg ville gjort annerledes, hvilke ferdigheter jeg vil jobbe videre med etter praksisen, og hva erfaringen betyr for veien videre etter bacheloren.",
+    contactLead: "Spørsmål om praksisen, oppgavene eller nettstedet? Ta gjerne kontakt.",
+    contactUia: "Studiested", contactCompany: "Praksisbedrift",
+    footerCourse: "Praksis i informasjonssystemer, UiA 2026",
+    footerNote: "Nettstedet oppdateres gjennom hele praksisperioden."
+  },
+  en: {
+    langLabel: "NO", navHome: "Home", navAbout: "About me", navSikri: "About Sikri", navTasks: "Task description",
+    navDiary: "Diary", navReflection: "Reflection", navContact: "Contact",
+    heroBadge: "Internship autumn 2026 · Sikri AS",
+    heroLead: "Fullstack developer intern at Sikri, and final-year bachelor student in IT and Information Systems at UiA Kristiansand.",
+    ctaTasks: "Read task description", ctaDiary: "Go to diary",
+    factCompany: "Company", factRole: "Role", factPeriod: "Period", factPeriodValue: "Week 35–47 · 2026", factDays: "Days", factDaysValue: "Thursday & Friday", factHours: "Scope",
+    aboutLead: "My name is Amina Mustafa and I am in my final year of the bachelor programme in IT and Information Systems at UiA Kristiansand.",
+    aboutBody: "I enjoy both coding and design, and I like it best when the two meet — when a solution works technically and is also good to use. I am social and like working closely with others, whether that is a development team, testers, or the people who actually use the system. The internship at Sikri is a chance to bring what I have learned at university into a real development environment.",
+    aboutStudy: "BSc IT and Information Systems, final year",
+    aboutInterestTitle: "Interests", aboutInterest: "Coding, design and collaboration",
+    aboutGoalTitle: "Goal for the internship", aboutGoal: "Become a more confident fullstack developer in a professional team",
+    sikriLead: "Sikri delivers case and archive solutions to the Norwegian public sector, with Elements as its main product.",
+    sikriBody: "Municipalities, county authorities and government agencies use the solutions to handle documentation, case management and archiving under Norwegian archiving and privacy requirements. That means systems that must stay stable over time, keep high data quality and handle many concurrent users — a good place to learn how professional software development is actually run.",
+    sikriCard1: "The case and archive system at the core of the product portfolio.",
+    sikriCard2Title: "Public", sikriCard2: "Customers across municipalities, counties and the state.",
+    sikriCard3Title: "Scale", sikriCard3: "Requirements for security, traceability and long system lifetime.",
+    taskLead: "Fullstack development: from small fixes to larger features.",
+    taskBody1: "During the internship I work as a fullstack developer in a development team at Sikri. The backend is written in C# and .NET, the frontend in React with TypeScript, and data lives in MSSQL. I work across the whole stack: data model, API endpoints and the interface the user actually sees.",
+    taskBody2: "Tasks start small — bug fixes, minor improvements to existing components and setting up the development environment — and gradually grow into larger pieces of functionality: new endpoints, database queries and new views in the frontend. Along the way I take part in code review, testing and the team's daily rhythm.",
+    taskBody3: "This is the plan as it stands today. The description will be updated as the tasks become clearer, and progress is documented in Status 1, Status 2 and the diary.",
+    stackTitle: "Technology", goalsTitle: "Learning goals",
+    status1When: "Around week 39", status2When: "Around week 46",
+    status1Body: "First status report for UiA. It sums up the start of the internship: how I got going, which tasks I was given, and what has been instructive or demanding so far.",
+    status1P1: "Onboarding, tools and access", status1P2: "First tasks in the codebase", status1P3: "Adjusting learning goals",
+    status2Body: "Second status report. It looks at how the tasks have grown in scope, what I have delivered, and what I want to prioritise in the final part of the period.",
+    status2P1: "Larger tasks and independent features", status2P2: "Collaboration, code review and testing", status2P3: "Towards the end of the period",
+    diaryHint: "Pick a week in the timeline to read the log. Internship days are Thursday and Friday.",
+    diaryEmpty: "No log entered for this week yet.",
+    reflectLead: "The reflection is written towards the end of the period.",
+    reflectBody1: "This will hold an overall reflection on the internship: what I learned about fullstack development in practice, what it is like to work in a team with real customers and requirements, and how the studies connect to everyday work at Sikri.",
+    reflectBody2: "I will also look at what I would do differently, which skills I want to keep working on after the internship, and what the experience means for the road after the bachelor's degree.",
+    contactLead: "Questions about the internship, the tasks or this site? Feel free to get in touch.",
+    contactUia: "University", contactCompany: "Host company",
+    footerCourse: "Internship in Information Systems, UiA 2026",
+    footerNote: "This site is updated throughout the internship period."
+  }
+};
+
+const GOALS = {
+  no: [
+    "Bli trygg på .NET/C# i en stor, eksisterende kodebase",
+    "Bygge og koble sammen React/TypeScript-frontend og REST-API",
+    "Forstå datamodellering og spørringer mot MSSQL",
+    "Lære teamets arbeidsflyt: Git, kodegjennomgang og leveranse"
+  ],
+  en: [
+    "Get confident with .NET/C# in a large existing codebase",
+    "Build and connect a React/TypeScript frontend to REST APIs",
+    "Understand data modelling and queries against MSSQL",
+    "Learn the team workflow: Git, code review and delivery"
+  ]
+};
+
+const STACK = ["C# / .NET", "React", "TypeScript", "MSSQL", "REST API", "Git / DevOps", "Azure", "Docker"];
+
+const MONTHS_NO = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
+const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+// Week 35 of 2026 starts Monday 17 August 2026.
+const WEEK35_MONDAY = Date.UTC(2026, 7, 24);
+
+const ENTRIES = {
+  35: [
+    { dayIdx: 0, time: "", title: "Oppstartsmøte og kontoromvisning",
+      text: "Møte med tech lead for å få alt praktisk på plass før praksisen startet, og omvisning på kontoret.",
+      next: "Neste gang: første arbeidsdag torsdag." },
+    { dayIdx: 3, time: "", title: "Første arbeidsdag: verktøy og kodebase",
+      text: "Jobben startet. Jeg lastet ned alle verktøyene jeg trenger, fikk adgangskort til kontoret, og clonet koden fra GitHub.",
+      next: "Neste gang: sette opp utviklingsmiljøet og bli kjent med kodebasen." },
+    { dayIdx: 4, time: "", title: "Kodebase, database og Azure-koblinger",
+      text: "Andre arbeidsdag gikk med til å få utviklingsmiljøet helt på plass. Jeg jobbet meg gjennom kodebasen for å forstå hvordan backend, frontend og database henger sammen, og hvor de ulike delene av prosjektet hører hjemme. Deretter satte jeg opp koblingen mot MSSQL-databasen, og fikk på plass de nødvendige koblingene mot Azure slik at prosjektet snakker med tjenestene det er avhengig av. På slutten av dagen kjørte alt lokalt slik det skal, og oppsettet var ferdig.",
+      next: "Neste gang: ta fatt på en første oppgave i kodebasen." }
+  ]
+};
+
+class Component extends DCLogic {
+  state = { lang: "no", week: 35 };
+
+  componentDidMount() {
+    try {
+      const saved = localStorage.getItem("praksis-amin");
+      if (saved) {
+        const s = JSON.parse(saved);
+        const w = Number(s.week);
+        this.setState({
+          lang: s.lang === "en" ? "en" : "no",
+          week: w >= 35 && w <= 47 ? w : 35,
+        });
+      }
+    } catch (e) {}
+  }
+
+  persist(next) {
+    try { localStorage.setItem("praksis-amin", JSON.stringify({ ...this.state, ...next })); } catch (e) {}
+  }
+
+  toggleLang = () => {
+    const lang = this.state.lang === "no" ? "en" : "no";
+    this.persist({ lang });
+    this.setState({ lang });
+  };
+
+  selectWeek = (n) => () => {
+    this.persist({ week: n });
+    this.setState({ week: n });
+  };
+
+  dateFor(week, dayIdx) {
+    return new Date(WEEK35_MONDAY + ((week - 35) * 7 + dayIdx) * 86400000);
+  }
+
+  fmt(d, lang) {
+    const m = lang === "no" ? MONTHS_NO[d.getUTCMonth()] : MONTHS_EN[d.getUTCMonth()];
+    return d.getUTCDate() + ". " + m + " " + d.getUTCFullYear();
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = COPY[lang];
+    const active = this.state.week;
+
+    const weeks = [];
+    for (let n = 35 ; n <= 47; n++) {
+      const isActive = n === active;
+      const has = !!ENTRIES[n];
+      weeks.push({
+        label: (lang === "no" ? "Uke " : "Week ") + n,
+        dates: this.dateFor(n, 3).getUTCDate() + ".–" + this.dateFor(n, 4).getUTCDate() + ".",
+        select: this.selectWeek(n),
+        btnStyle: {
+          position: "relative", flex: "1 0 92px", display: "flex", flexDirection: "column",
+          alignItems: "center", gap: "6px", padding: "16px 4px 4px", background: "transparent",
+          border: "none", cursor: "pointer", fontFamily: "inherit"
+        },
+        lineStyle: {
+          position: "absolute", top: "23px", left: n === 35 ? "50%" : "0",
+          right: n === 47 ? "50%" : "0", height: "2px", background: "var(--line)"
+        },
+        dotStyle: {
+          position: "relative", width: isActive ? "16px" : "12px", height: isActive ? "16px" : "12px",
+          borderRadius: "999px", background: isActive ? "#1B116E" : (has ? "#5F589A" : "#fff"),
+          border: "2px solid " + (isActive ? "#1B116E" : "#5F589A"),
+          boxShadow: "0 0 0 5px #fff", transition: "all .18s ease"
+        },
+        labelStyle: {
+          fontSize: "12px", fontWeight: isActive ? 700 : 500,
+          color: isActive ? "#1B116E" : "#5F589A", whiteSpace: "nowrap", marginTop: "4px"
+        }
+      });
+    }
+
+    const raw = ENTRIES[active] || [];
+    const dayNames = lang === "no"
+      ? ["Mandag","Tirsdag","Onsdag","Torsdag","Fredag"]
+      : ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+    const activeEntries = raw.map(e => {
+      const d = this.dateFor(active, e.dayIdx);
+      return { day: dayNames[e.dayIdx], date: this.fmt(d, lang), time: e.time, title: e.title, text: e.text, next: e.next };
+    });
+
+    const from = this.dateFor(active, 3), to = this.dateFor(active, 4);
+    const monthName = lang === "no" ? MONTHS_NO[to.getUTCMonth()] : MONTHS_EN[to.getUTCMonth()];
+
+    return {
+      t, stack: STACK, goals: GOALS[lang],
+      toggleLang: this.toggleLang,
+      weeks, activeEntries, activeEmpty: activeEntries.length === 0,
+      activeTitle: (lang === "no" ? "Uke " : "Week ") + active,
+      activeRange: from.getUTCDate() + ".–" + to.getUTCDate() + ". " + monthName
+    };
+  }
+}
+</script>
+</body>
+</html>
