@@ -74,6 +74,39 @@
   @media (prefers-reduced-motion: reduce) {
     .tech-icon-card, .tech-icon-card::before, .tech-icon-card img { animation: none; transition: none; }
   }
+  @media (max-width: 760px) {
+    html { scroll-padding-top: 150px; }
+    body { overflow-x: hidden; }
+    header > div { padding: 10px 16px !important; gap: 10px !important; }
+    header nav {
+      order: 3;
+      width: 100%;
+      margin-left: 0 !important;
+      padding-bottom: 4px;
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    header nav::-webkit-scrollbar { display: none; }
+    header button { margin-left: auto !important; }
+    #hjem { padding: 64px 18px 96px !important; }
+    #hjem > div { grid-template-columns: 1fr !important; gap: 32px !important; }
+    #hjem h1 { font-size: 42px !important; }
+    #hjem dl { width: 100%; }
+    main { margin-top: -44px !important; padding: 0 14px 72px !important; gap: 18px !important; }
+    main > article, main > div > article { padding: 28px 22px !important; }
+    main > div,
+    #om-meg > div:last-child,
+    #om-sikri > div:last-child,
+    #oppgave > div:last-child,
+    #refleksjon > div:last-child,
+    #kontakt { grid-template-columns: 1fr !important; gap: 24px !important; }
+    #dagbok > div:last-child > div { grid-template-columns: 1fr !important; gap: 12px !important; }
+    #oppgave > p:first-of-type,
+    #refleksjon > p:first-of-type { font-size: 30px !important; }
+    #kontakt li { flex-wrap: wrap; }
+    footer { padding: 28px 18px !important; }
+  }
   /* Malen skal aldri vises rå. Runtime bytter ut <x-dc> med #dc-root. */
   x-dc { display: none; }
   #dc-fallback { display: none; }
@@ -353,7 +386,7 @@
           <span style="color: var(--ink-2)">LinkedIn</span><a href="https://www.linkedin.com/in/amina-mustafa-547a23350/">Amina Mustafa</a>
         </li>
         <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; background: var(--surface-2); border-radius: var(--br); font-size: 15px">
-          <span style="color: var(--ink-2)">{{ t.contactUia }}</span><a<span style="font-weight: 600">UiA Kristiansand</span>
+          <span style="color: var(--ink-2)">{{ t.contactUia }}</span><span style="font-weight: 600">UiA Kristiansand</span>
         </li>
         <li style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 20px; background: var(--surface-2); border-radius: var(--br); font-size: 15px">
           <span style="color: var(--ink-2)">{{ t.contactCompany }}</span><a href="https://www.sikri.no/">sikri.no</a>
@@ -376,8 +409,8 @@
     <span style="width: 28px; height: 2px; background: var(--ink); display: block; margin-bottom: 22px"></span>
     <h1 style="margin: 0 0 6px; font-family: 'Archivo Black', Archivo, sans-serif; font-weight: 400; font-size: 40px; line-height: 1.1">Amina Mustafa</h1>
     <p style="margin: 0 0 28px; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 600">Praksis hos Sikri AS</p>
-    <p style="margin: 0 0 14px; font-size: 17px; line-height: 1.6">Siden klarte ikke å laste. Innholdet krever JavaScript og tilgang til unpkg.com, som enkelte bedriftsnett blokkerer.</p>
-    <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.6; color: var(--ink-2)">This page failed to load. It needs JavaScript and access to unpkg.com, which some corporate networks block. Try reloading, or open it on another network.</p>
+    <p style="margin: 0 0 14px; font-size: 17px; line-height: 1.6">Siden klarte ikke å laste. Prøv å oppdatere siden eller åpne den i en annen nettleser.</p>
+    <p style="margin: 0 0 28px; font-size: 15px; line-height: 1.6; color: var(--ink-2)">This page failed to load. Try refreshing the page or opening it in another browser.</p>
     <p style="margin: 0; font-size: 15px; line-height: 1.9; color: var(--ink-2)">
       Ta kontakt direkte: <a href="mailto:aminm@uia.no" style="font-weight: 600">aminm@uia.no</a><br />
       Praksisbedrift: <a href="https://www.sikri.no/" style="font-weight: 600">sikri.no</a>
