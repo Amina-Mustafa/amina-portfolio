@@ -29,6 +29,51 @@
   a[href^="#"] { text-decoration: none; font-weight: 500; }
   a:hover { color: var(--ink); }
   ::selection { background: var(--ink); color: #fff; }
+  .tech-icon-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  }
+  .tech-icon-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(107,237,181,0.28), transparent 64%);
+    opacity: 0;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+  }
+  .tech-icon-card img {
+    position: relative;
+    z-index: 1;
+    animation: tech-float 3.2s ease-in-out infinite;
+    transition: transform 220ms ease, filter 220ms ease;
+  }
+  .tech-icon-card span { position: relative; z-index: 1; }
+  .tech-icon-card:nth-child(2) img { animation-delay: -0.55s; }
+  .tech-icon-card:nth-child(3) img { animation-delay: -1.1s; }
+  .tech-icon-card:nth-child(4) img { animation-delay: -1.65s; }
+  .tech-icon-card:nth-child(5) img { animation-delay: -2.2s; }
+  .tech-icon-card:nth-child(6) img { animation-delay: -2.75s; }
+  .tech-icon-card:nth-child(7) img { animation-delay: -3.3s; }
+  .tech-icon-card:hover {
+    background: #fff !important;
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 26px -14px rgba(27,17,110,0.55);
+  }
+  .tech-icon-card:hover::before { opacity: 1; }
+  .tech-icon-card:hover img {
+    animation: none;
+    transform: rotate(-4deg) scale(1.14);
+    filter: drop-shadow(0 5px 5px rgba(27,17,110,0.2));
+  }
+  @keyframes tech-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tech-icon-card, .tech-icon-card::before, .tech-icon-card img { animation: none; transition: none; }
+  }
   /* Malen skal aldri vises rå. Runtime bytter ut <x-dc> med #dc-root. */
   x-dc { display: none; }
   #dc-fallback { display: none; }
@@ -81,7 +126,7 @@
         </div>
         <div style="background: rgba(27,17,110,0.55); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
           <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factRole }}</dt>
-          <dd style="margin: 0; font-size: 18px; font-weight: 600">Fullstack</dd>
+          <dd style="margin: 0; font-size: 18px; font-weight: 600">Fullstack utvikler</dd>
         </div>
         <div style="background: rgba(27,17,110,0.55); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
           <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factPeriod }}</dt>
@@ -216,18 +261,55 @@
       </div>
     </article>
 
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px">
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start">
       <article id="status-1" style="background: #fff; border-radius: var(--br); padding: 40px 44px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px">
           <h2 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.01em">Status 1</h2>
           <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.status1When }}</span>
         </div>
-        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body }}</p>
-        <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; color: var(--ink-2)">
-          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status1P1 }}</li>
-          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status1P2 }}</li>
-          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status1P3 }}</li>
-        </ul>
+        <h3 style="margin: 0 0 18px; font-size: 21px; line-height: 1.4; color: var(--ink)">{{ t.status1Title }}</h3>
+        <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body1 }}</p>
+        <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body2 }}</p>
+        <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body3 }}</p>
+        <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body4 }}</p>
+        <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body5 }}</p>
+        <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body6 }}</p>
+        <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body7 }}</p>
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body8 }}</p>
+        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line)">
+          <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: var(--ink-2)">{{ t.status1TechLead }}</p>
+          <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); gap: 10px">
+            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
+              <img src="./assets/csharp.svg" alt="C#" style="width: 38px; height: 38px; display: block" />
+              <span style="font-size: 12px; line-height: 1; color: var(--ink); font-weight: 600">C#</span>
+            </li>
+            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
+              <img src="./assets/dotnet.svg" alt=".NET" style="width: 38px; height: 38px; display: block" />
+              <span style="font-size: 12px; line-height: 1; color: var(--ink); font-weight: 600">.NET</span>
+            </li>
+            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
+              <img src="./assets/typescript.svg" alt="TypeScript" style="width: 38px; height: 38px; display: block" />
+              <span style="font-size: 12px; line-height: 1; color: var(--ink); font-weight: 600">TypeScript</span>
+            </li>
+            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
+              <img src="./assets/react.svg" alt="React" style="width: 38px; height: 38px; display: block" />
+              <span style="font-size: 12px; line-height: 1; color: var(--ink); font-weight: 600">React</span>
+            </li>
+            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
+              <img src="./assets/git.svg" alt="Git" style="width: 38px; height: 38px; display: block" />
+              <span style="font-size: 12px; line-height: 1; color: var(--ink); font-weight: 600">Git</span>
+            </li>
+            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
+              <img src="./assets/azure-devops.svg" alt="Azure DevOps" style="width: 38px; height: 38px; display: block" />
+              <span style="font-size: 12px; line-height: 1.15; color: var(--ink); font-weight: 600">Azure DevOps</span>
+            </li>
+            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
+              <img src="./assets/slack.svg" alt="Slack" style="width: 38px; height: 38px; display: block" />
+              <span style="font-size: 12px; line-height: 1; color: var(--ink); font-weight: 600">Slack</span>
+            </li>
+          </ul>
+        </div>
+        <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body9 }}</p>
       </article>
       <article id="status-2" style="background: #fff; border-radius: var(--br); padding: 40px 44px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px">
@@ -342,9 +424,18 @@ const COPY = {
     taskBody2: "Oppgavene starter i det små — feilretting, mindre forbedringer i eksisterende komponenter og oppsett av utviklingsmiljø — og bygger seg gradvis opp mot større oppgaver med egen funksjonalitet: nye endepunkt, spørringer mot databasen og nye visninger i frontend. Underveis er jeg med på kodegjennomgang, testing og den daglige rytmen i teamet.",
     taskBody3: "Slik det ser ut nå er dette planen. Beskrivelsen oppdateres etter hvert som oppgavene blir tydeligere, og status underveis dokumenteres i Status 1, Status 2 og dagboken.",
     stackTitle: "Teknologi", goalsTitle: "Læringsmål",
-    status1When: "Ca. uke 39", status2When: "Ca. uke 46",
-    status1Body: "Første statusrapport til UiA. Oppsummerer starten av praksisen: hvordan jeg kom i gang, hvilke oppgaver jeg har fått, og hva som har vært lærerikt eller krevende så langt.",
-    status1P1: "Oppstart, verktøy og tilganger", status1P2: "Første oppgaver i kodebasen", status1P3: "Justering av læringsmål",
+    status1When: "Uke 39", status2When: "Ca. uke 46",
+    status1Title: "Om Sikri og praksisen min",
+    status1Body1: "Jeg er i praksis hos Sikri, som er et teknologiselskap som utvikler digitale løsninger for offentlig sektor. Sikri lager blant annet systemer for saksbehandling, dokumenthåndtering, arkiv og publisering av offentlig informasjon.",
+    status1Body2: "Da jeg startet i praksis, ble jeg introdusert for teamet og fikk en gjennomgang av prosjektet og teknologiene som brukes. Den første uka jobbet jeg med å få på plass nødvendige tilganger til Sikris systemer og verktøy, slik at jeg kunne komme i gang med arbeidet.",
+    status1Body3: "Deretter begynte jeg å jobbe med prosjektet Elements Publikum. Publikum er en nettside der innbyggere kan søke etter og finne offentlig informasjon, for eksempel saker, journalposter, dokumenter og politiske møter.",
+    status1Body4: "Min rolle hos Sikri er fullstack-utvikler. Vi bruker C# og .NET i backend og React med TypeScript i frontend. Jeg får også erfaring med Azure DevOps, som brukes som en del av utviklingsarbeidet.",
+    status1Body5: "Jeg deltar jevnlig i teamets standup-møter og sprint-møter. Her snakker vi om hva vi har jobbet med, hva vi skal jobbe videre med og om det er noen utfordringer. Vi presenterer også arbeidet vårt, får tilbakemeldinger og diskuterer løsninger sammen med resten av teamet. Vi bruker i tillegg Slack til kommunikasjon og samarbeid i det daglige arbeidet.",
+    status1Body6: "Gjennom praksisen får jeg erfaring med å lese og forstå kode som allerede finnes i prosjektet, gjøre endringer, teste arbeidet mitt og bruke Git som en del av utviklingsprosessen. Jeg får også se hvordan utviklere samarbeider og jobber med oppgaver i et større prosjekt.",
+    status1Body7: "Noe av det mest utfordrende i starten var å få oversikt over prosjektet, infrastrukturen og de ulike systemene som brukes. Det er et stort prosjekt med mange deler, og derfor tok det litt tid å forstå hvordan alt henger sammen.",
+    status1Body8: "Samtidig har dette vært noe av det mest lærerike med praksisen. Jeg får se hvordan ulike deler av et større system fungerer sammen, og hvordan utviklere samarbeider om å utvikle og vedlikeholde programvare. Det har gitt meg en bedre helhetsforståelse av hvordan utviklingsarbeid foregår i en profesjonell bedrift.",
+    status1TechLead: "Teknologier og verktøy jeg jobber med er blant annet:",
+    status1Body9: "Jeg synes det er spennende å få jobbe med et ekte prosjekt og få erfaring ved å jobbe tett med dyktige kolleger. Praksisen gjør at jeg får brukt det jeg har lært på skolen i praksis, samtidig som jeg lærer mye nytt om programmering, samarbeid og hvordan større systemer er bygget opp.",
     status2Body: "Andre statusrapport. Ser på hvordan oppgavene har vokst i omfang, hva jeg har levert, og hva jeg vil prioritere i den siste delen av perioden.",
     status2P1: "Større oppgaver og egen funksjonalitet", status2P2: "Samarbeid, kodegjennomgang og testing", status2P3: "Veien mot avslutning av perioden",
     diaryHint: "Velg uke i tidslinjen for å se loggen. Praksisdagene er torsdag og fredag.",
@@ -379,9 +470,18 @@ const COPY = {
     taskBody2: "Tasks start small — bug fixes, minor improvements to existing components and setting up the development environment — and gradually grow into larger pieces of functionality: new endpoints, database queries and new views in the frontend. Along the way I take part in code review, testing and the team's daily rhythm.",
     taskBody3: "This is the plan as it stands today. The description will be updated as the tasks become clearer, and progress is documented in Status 1, Status 2 and the diary.",
     stackTitle: "Technology", goalsTitle: "Learning goals",
-    status1When: "Around week 39", status2When: "Around week 46",
-    status1Body: "First status report for UiA. It sums up the start of the internship: how I got going, which tasks I was given, and what has been instructive or demanding so far.",
-    status1P1: "Onboarding, tools and access", status1P2: "First tasks in the codebase", status1P3: "Adjusting learning goals",
+    status1When: "Week 39", status2When: "Around week 46",
+    status1Title: "About Sikri and my internship",
+    status1Body1: "I am an intern at Sikri, a technology company that develops digital solutions for the public sector. Sikri creates systems for case management, document management, archiving and publishing public information.",
+    status1Body2: "When I started the internship, I was introduced to the team and given an overview of the project and the technologies being used. During the first week, I worked on getting the necessary access to Sikri's systems and tools so that I could get started.",
+    status1Body3: "I then began working on the Elements Publikum project. Publikum is a website where residents can search for and find public information, such as cases, journal entries, documents and political meetings.",
+    status1Body4: "My role at Sikri is fullstack developer. We use C# and .NET for the backend and React with TypeScript for the frontend. I also gain experience with Azure DevOps, which is used as part of the development work.",
+    status1Body5: "I regularly participate in the team's stand-up meetings and sprint meetings. We discuss what we have worked on, what we will work on next and whether there are any challenges. We also present our work, receive feedback and discuss solutions with the rest of the team. In addition, we use Slack for communication and collaboration in our daily work.",
+    status1Body6: "Through the internship, I gain experience reading and understanding code that already exists in the project, making changes, testing my work and using Git as part of the development process. I also get to see how developers collaborate and work on tasks in a larger project.",
+    status1Body7: "One of the most challenging parts at the beginning was getting an overview of the project, the infrastructure and the different systems being used. It is a large project with many parts, so it took some time to understand how everything fits together.",
+    status1Body8: "At the same time, this has been one of the most educational parts of the internship. I get to see how different parts of a larger system work together and how developers collaborate to develop and maintain software. This has given me a better overall understanding of how development work is carried out in a professional company.",
+    status1TechLead: "Technologies and tools I work with include:",
+    status1Body9: "I find it exciting to work on a real project and gain experience by working closely with skilled colleagues. The internship allows me to apply what I have learned at university while also learning a great deal about programming, collaboration and how larger systems are built.",
     status2Body: "Second status report. It looks at how the tasks have grown in scope, what I have delivered, and what I want to prioritise in the final part of the period.",
     status2P1: "Larger tasks and independent features", status2P2: "Collaboration, code review and testing", status2P3: "Towards the end of the period",
     diaryHint: "Pick a week in the timeline to read the log. Internship days are Thursday and Friday.",
@@ -416,7 +516,7 @@ const STACK = ["C# / .NET", "React", "TypeScript", "MSSQL", "REST API", "Git / D
 const MONTHS_NO = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
 const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-// Week 35 of 2026 starts Monday 17 August 2026.
+// Week 35 of 2026 starts Monday 24 August 2026.
 const WEEK35_MONDAY = Date.UTC(2026, 7, 24);
 
 const ENTRIES = {
@@ -430,6 +530,27 @@ const ENTRIES = {
     { dayIdx: 4, time: "", title: "Kodebase, database og Azure-koblinger",
       text: "Andre arbeidsdag gikk med til å få utviklingsmiljøet helt på plass. Jeg jobbet meg gjennom kodebasen for å forstå hvordan backend, frontend og database henger sammen, og hvor de ulike delene av prosjektet hører hjemme. Deretter satte jeg opp koblingen mot MSSQL-databasen, og fikk på plass de nødvendige koblingene mot Azure slik at prosjektet snakker med tjenestene det er avhengig av. På slutten av dagen kjørte alt lokalt slik det skal, og oppsettet var ferdig.",
       next: "Neste gang: ta fatt på en første oppgave i kodebasen." }
+  ],
+  36: [
+    { dayIdx: 3, time: "", title: "Testfeil og testoppsett",
+      text: "I dag undersøkte jeg noen testfeil knyttet til en Pull Request. Jeg kjørte testene lokalt og sjekket at prosjektet bygget som det skulle. Jeg jobbet også videre med testoppsettet for å kunne teste løsningen bedre før jeg sender inn endringer.",
+      next: "" },
+    { dayIdx: 4, time: "", title: "Pull Request og oppfølgingsstatus",
+      text: "I dag jobbet jeg videre med prosjektet og gjorde endringer i en Pull Request. Jeg lærte mer om hvordan Git, branches, commits og Pull Requests henger sammen, og hvordan endringer blir oppdatert når jeg jobber videre på samme branch. Jeg begynte også å undersøke oppgaven med å vise oppfølgingsstatus for vedtak i Publikum. Jeg så på hvordan statusen fungerer i systemet i dag, og hvordan informasjonen kan hentes og vises videre. Jeg har ikke løst hele oppgaven ennå, men har fått en bedre forståelse av problemet og hva jeg må undersøke videre.",
+      next: "" }
+  ],
+  37: [
+    { dayIdx: 3, time: "", title: "Oppfølgingsstatus: backend og frontend",
+      text: "I denne uka jobbet jeg videre med oppgaven om å vise oppfølgingsstatus for vedtak i Publikum. Jeg undersøkte hvordan informasjonen om status blir hentet fra backend og sendt videre til frontend. Jeg gjorde noen nødvendige endringer i modellene og undersøkte hvordan lignende informasjon allerede blir håndtert i prosjektet.",
+      next: "" }
+  ],
+  38: [
+    { dayIdx: 3, time: "", title: "Oppfølgingsstatus: undersøkelse av datakilden",
+      text: "Jeg jobbet videre med oppgaven om å vise oppfølgingsstatus for vedtak i Publikum. Underveis oppdaget jeg at informasjonen jeg trenger ikke ligger der jeg først forventet. Derfor brukte jeg tid på å undersøke datakilden og hvordan informasjonen blir hentet gjennom systemet.",
+      next: "" },
+    { dayIdx: 4, time: "", title: "Oppfølgingsstatus: videre arbeid med samme oppgave",
+      text: "Jeg fortsatte med den samme oppgaven fra torsdag og undersøkte videre hvordan dataene henger sammen. Oppgaven er fortsatt under arbeid, men jeg har fått en bedre forståelse av hvordan informasjonen blir hentet gjennom systemet og hva jeg må jobbe videre med.",
+      next: "" }
   ]
 };
 

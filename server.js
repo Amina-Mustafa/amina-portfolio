@@ -6,7 +6,7 @@ const path = require("path");
 
 const ROOT = __dirname;
 const PORT = Number(process.env.PORT) || 5173;
-const ENTRY = "Praksis Amin.dc.html";
+const ENTRY = "index.html";
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
