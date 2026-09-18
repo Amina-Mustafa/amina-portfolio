@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  Last React fra prosjektet før design-runtime-en. support.js bruker de
+  eksisterende globalene og trenger derfor ikke å laste dem på nytt med en
+  SRI-hash som kan bli utdatert når vendor-filene oppdateres.
+-->
+<script src="./vendor/react.production.min.js"></script>
+<script src="./vendor/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -67,6 +74,41 @@
     transform: rotate(-4deg) scale(1.14);
     filter: drop-shadow(0 5px 5px rgba(27,17,110,0.2));
   }
+  .status-gallery-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: 16px;
+    align-items: start;
+  }
+  .status-photo {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--br);
+    background: var(--surface-2);
+    box-shadow: 0 12px 28px -22px rgba(27,17,110,0.65);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+  .status-photo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 34px -20px rgba(27,17,110,0.55);
+  }
+  .status-photo:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+  .status-photo img {
+    width: 100%;
+    height: clamp(280px, 38vw, 500px);
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+  .status-photo figcaption {
+    padding: 12px 14px;
+    color: var(--ink-2);
+    background: #fff;
+    font-size: 13px;
+    line-height: 1.45;
+    font-weight: 500;
+  }
   @keyframes tech-float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-4px); }
@@ -101,6 +143,7 @@
     #oppgave > div:last-child,
     #refleksjon > div:last-child,
     #kontakt { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .status-gallery-grid { grid-template-columns: 1fr; }
     #dagbok > div:last-child > div { grid-template-columns: 1fr !important; gap: 12px !important; }
     #oppgave > p:first-of-type,
     #refleksjon > p:first-of-type { font-size: 30px !important; }
@@ -294,7 +337,7 @@
       </div>
     </article>
 
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start">
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: start">
       <article id="status-1" style="background: #fff; border-radius: var(--br); padding: 40px 44px; box-shadow: 0 18px 50px -34px rgba(27,17,110,0.30)">
         <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px">
           <h2 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.01em">Status 1</h2>
@@ -309,6 +352,26 @@
         <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body6 }}</p>
         <p style="margin: 0 0 16px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body7 }}</p>
         <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status1Body8 }}</p>
+        <section style="margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line)" aria-label="{{ t.status1GalleryTitle }}">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px">
+            <span style="width: 22px; height: 2px; background: var(--ink); display: block" aria-hidden="true"></span>
+            <h4 style="margin: 0; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.status1GalleryTitle }}</h4>
+          </div>
+          <div class="status-gallery-grid">
+            <figure style="margin: 0">
+              <a class="status-photo" href="./assets/status-bilde1.jpg" target="_blank" rel="noopener" aria-label="{{ t.status1Photo1 }}">
+                <img src="./assets/status-bilde1.jpg" alt="{{ t.status1Photo1 }}" width="1536" height="2048" loading="lazy" decoding="async" />
+                <figcaption>{{ t.status1Photo1 }}</figcaption>
+              </a>
+            </figure>
+            <figure style="margin: 0">
+              <a class="status-photo" href="./assets/status-bilde2.jpg" target="_blank" rel="noopener" aria-label="{{ t.status1Photo2 }}">
+                <img src="./assets/status-bilde2.jpg" alt="{{ t.status1Photo2 }}" width="2048" height="1535" loading="lazy" decoding="async" />
+                <figcaption>{{ t.status1Photo2 }}</figcaption>
+              </a>
+            </figure>
+          </div>
+        </section>
         <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line)">
           <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: var(--ink-2)">{{ t.status1TechLead }}</p>
           <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); gap: 10px">
@@ -331,10 +394,6 @@
             <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
               <img src="./assets/git.svg" alt="Git" style="width: 38px; height: 38px; display: block" />
               <span style="font-size: 12px; line-height: 1; color: var(--ink); font-weight: 600">Git</span>
-            </li>
-            <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
-              <img src="./assets/azure-devops.svg" alt="Azure DevOps" style="width: 38px; height: 38px; display: block" />
-              <span style="font-size: 12px; line-height: 1.15; color: var(--ink); font-weight: 600">Azure DevOps</span>
             </li>
             <li class="tech-icon-card" style="min-height: 88px; padding: 14px 8px 11px; box-sizing: border-box; background: var(--surface-2); border-radius: var(--br); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; text-align: center">
               <img src="./assets/slack.svg" alt="Slack" style="width: 38px; height: 38px; display: block" />
@@ -457,16 +516,19 @@ const COPY = {
     taskBody2: "Oppgavene starter i det små — feilretting, mindre forbedringer i eksisterende komponenter og oppsett av utviklingsmiljø — og bygger seg gradvis opp mot større oppgaver med egen funksjonalitet: nye endepunkt, spørringer mot databasen og nye visninger i frontend. Underveis er jeg med på kodegjennomgang, testing og den daglige rytmen i teamet.",
     taskBody3: "Slik det ser ut nå er dette planen. Beskrivelsen oppdateres etter hvert som oppgavene blir tydeligere, og status underveis dokumenteres i Status 1, Status 2 og dagboken.",
     stackTitle: "Teknologi", goalsTitle: "Læringsmål",
-    status1When: "Uke 39", status2When: "Ca. uke 46",
+    status1When: "Uke 38", status2When: "Ca. uke 46",
     status1Title: "Om Sikri og praksisen min",
     status1Body1: "Jeg er i praksis hos Sikri, som er et teknologiselskap som utvikler digitale løsninger for offentlig sektor. Sikri lager blant annet systemer for saksbehandling, dokumenthåndtering, arkiv og publisering av offentlig informasjon.",
     status1Body2: "Da jeg startet i praksis, ble jeg introdusert for teamet og fikk en gjennomgang av prosjektet og teknologiene som brukes. Den første uka jobbet jeg med å få på plass nødvendige tilganger til Sikris systemer og verktøy, slik at jeg kunne komme i gang med arbeidet.",
     status1Body3: "Deretter begynte jeg å jobbe med prosjektet Elements Publikum. Publikum er en nettside der innbyggere kan søke etter og finne offentlig informasjon, for eksempel saker, journalposter, dokumenter og politiske møter.",
-    status1Body4: "Min rolle hos Sikri er fullstack-utvikler. Vi bruker C# og .NET i backend og React med TypeScript i frontend. Jeg får også erfaring med Azure DevOps, som brukes som en del av utviklingsarbeidet.",
+    status1Body4: "Min rolle hos Sikri er fullstack-utvikler. Vi bruker C# og .NET i backend og React med TypeScript i frontend.",
     status1Body5: "Jeg deltar jevnlig i teamets standup-møter og sprint-møter. Her snakker vi om hva vi har jobbet med, hva vi skal jobbe videre med og om det er noen utfordringer. Vi presenterer også arbeidet vårt, får tilbakemeldinger og diskuterer løsninger sammen med resten av teamet. Vi bruker i tillegg Slack til kommunikasjon og samarbeid i det daglige arbeidet.",
     status1Body6: "Gjennom praksisen får jeg erfaring med å lese og forstå kode som allerede finnes i prosjektet, gjøre endringer, teste arbeidet mitt og bruke Git som en del av utviklingsprosessen. Jeg får også se hvordan utviklere samarbeider og jobber med oppgaver i et større prosjekt.",
     status1Body7: "Noe av det mest utfordrende i starten var å få oversikt over prosjektet, infrastrukturen og de ulike systemene som brukes. Det er et stort prosjekt med mange deler, og derfor tok det litt tid å forstå hvordan alt henger sammen.",
     status1Body8: "Samtidig har dette vært noe av det mest lærerike med praksisen. Jeg får se hvordan ulike deler av et større system fungerer sammen, og hvordan utviklere samarbeider om å utvikle og vedlikeholde programvare. Det har gitt meg en bedre helhetsforståelse av hvordan utviklingsarbeid foregår i en profesjonell bedrift.",
+    status1GalleryTitle: "Bilder fra praksisen",
+    status1Photo1: "En dag på kontoret hos Sikri",
+    status1Photo2: "Sammen med kolleger hos Sikri",
     status1TechLead: "Teknologier og verktøy jeg jobber med er blant annet:",
     status1Body9: "Jeg synes det er spennende å få jobbe med et ekte prosjekt og få erfaring ved å jobbe tett med dyktige kolleger. Praksisen gjør at jeg får brukt det jeg har lært på skolen i praksis, samtidig som jeg lærer mye nytt om programmering, samarbeid og hvordan større systemer er bygget opp.",
     status2Body: "Andre statusrapport. Ser på hvordan oppgavene har vokst i omfang, hva jeg har levert, og hva jeg vil prioritere i den siste delen av perioden.",
@@ -503,16 +565,19 @@ const COPY = {
     taskBody2: "Tasks start small — bug fixes, minor improvements to existing components and setting up the development environment — and gradually grow into larger pieces of functionality: new endpoints, database queries and new views in the frontend. Along the way I take part in code review, testing and the team's daily rhythm.",
     taskBody3: "This is the plan as it stands today. The description will be updated as the tasks become clearer, and progress is documented in Status 1, Status 2 and the diary.",
     stackTitle: "Technology", goalsTitle: "Learning goals",
-    status1When: "Week 39", status2When: "Around week 46",
+    status1When: "Week 38", status2When: "Around week 46",
     status1Title: "About Sikri and my internship",
     status1Body1: "I am an intern at Sikri, a technology company that develops digital solutions for the public sector. Sikri creates systems for case management, document management, archiving and publishing public information.",
     status1Body2: "When I started the internship, I was introduced to the team and given an overview of the project and the technologies being used. During the first week, I worked on getting the necessary access to Sikri's systems and tools so that I could get started.",
     status1Body3: "I then began working on the Elements Publikum project. Publikum is a website where residents can search for and find public information, such as cases, journal entries, documents and political meetings.",
-    status1Body4: "My role at Sikri is fullstack developer. We use C# and .NET for the backend and React with TypeScript for the frontend. I also gain experience with Azure DevOps, which is used as part of the development work.",
+    status1Body4: "My role at Sikri is fullstack developer. We use C# and .NET for the backend and React with TypeScript for the frontend.",
     status1Body5: "I regularly participate in the team's stand-up meetings and sprint meetings. We discuss what we have worked on, what we will work on next and whether there are any challenges. We also present our work, receive feedback and discuss solutions with the rest of the team. In addition, we use Slack for communication and collaboration in our daily work.",
     status1Body6: "Through the internship, I gain experience reading and understanding code that already exists in the project, making changes, testing my work and using Git as part of the development process. I also get to see how developers collaborate and work on tasks in a larger project.",
     status1Body7: "One of the most challenging parts at the beginning was getting an overview of the project, the infrastructure and the different systems being used. It is a large project with many parts, so it took some time to understand how everything fits together.",
     status1Body8: "At the same time, this has been one of the most educational parts of the internship. I get to see how different parts of a larger system work together and how developers collaborate to develop and maintain software. This has given me a better overall understanding of how development work is carried out in a professional company.",
+    status1GalleryTitle: "Photos from the internship",
+    status1Photo1: "A day at the Sikri office",
+    status1Photo2: "Together with colleagues at Sikri",
     status1TechLead: "Technologies and tools I work with include:",
     status1Body9: "I find it exciting to work on a real project and gain experience by working closely with skilled colleagues. The internship allows me to apply what I have learned at university while also learning a great deal about programming, collaboration and how larger systems are built.",
     status2Body: "Second status report. It looks at how the tasks have grown in scope, what I have delivered, and what I want to prioritise in the final part of the period.",
@@ -544,7 +609,7 @@ const GOALS = {
   ]
 };
 
-const STACK = ["C# / .NET", "React", "TypeScript", "MSSQL", "REST API", "Git / DevOps", "Azure", "Docker"];
+const STACK = ["C# / .NET", "React", "TypeScript", "MSSQL", "REST API", "Git / DevOps", "Docker"];
 
 const MONTHS_NO = ["januar","februar","mars","april","mai","juni","juli","august","september","oktober","november","desember"];
 const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -560,8 +625,8 @@ const ENTRIES = {
     { dayIdx: 3, time: "", title: "Første arbeidsdag: verktøy og kodebase",
       text: "Jobben startet. Jeg lastet ned alle verktøyene jeg trenger, fikk adgangskort til kontoret, og clonet koden fra GitHub.",
       next: "Neste gang: sette opp utviklingsmiljøet og bli kjent med kodebasen." },
-    { dayIdx: 4, time: "", title: "Kodebase, database og Azure-koblinger",
-      text: "Andre arbeidsdag gikk med til å få utviklingsmiljøet helt på plass. Jeg jobbet meg gjennom kodebasen for å forstå hvordan backend, frontend og database henger sammen, og hvor de ulike delene av prosjektet hører hjemme. Deretter satte jeg opp koblingen mot MSSQL-databasen, og fikk på plass de nødvendige koblingene mot Azure slik at prosjektet snakker med tjenestene det er avhengig av. På slutten av dagen kjørte alt lokalt slik det skal, og oppsettet var ferdig.",
+    { dayIdx: 4, time: "", title: "Kodebase og database",
+      text: "Andre arbeidsdag gikk med til å få utviklingsmiljøet helt på plass. Jeg jobbet meg gjennom kodebasen for å forstå hvordan backend, frontend og database henger sammen, og hvor de ulike delene av prosjektet hører hjemme. Deretter satte jeg opp koblingen mot MSSQL-databasen, og fikk på plass de nødvendige koblingene slik at prosjektet snakker med tjenestene det er avhengig av. På slutten av dagen kjørte alt lokalt slik det skal, og oppsettet var ferdig.",
       next: "Neste gang: ta fatt på en første oppgave i kodebasen." }
   ],
   36: [
