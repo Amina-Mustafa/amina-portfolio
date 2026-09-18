@@ -765,6 +765,11 @@ class Component extends DCLogic {
       video.addEventListener("ratechange", this.syncStatusVideoControls);
       this.syncStatusVideoControls();
     }
+    requestAnimationFrame(() => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const target = id ? document.getElementById(id) : null;
+      if (target) target.scrollIntoView({ block: "start" });
+    });
   }
 
   persist(next) {
