@@ -109,6 +109,73 @@
     line-height: 1.45;
     font-weight: 500;
   }
+  .status-video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: 82px;
+    height: 82px;
+    padding: 0;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255,255,255,0.85);
+    border-radius: 50%;
+    background: rgba(27,17,110,0.9);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    transition: transform 180ms ease, background 180ms ease;
+  }
+  .status-video-play:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--ink); }
+  .status-video-play:focus-visible { outline: 3px solid var(--mint); outline-offset: 4px; }
+  .status-video-play[hidden] { display: none; }
+  .status-video-play::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: 31px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 22px solid currentColor;
+  }
+  .status-video-controls {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    z-index: 3;
+    padding: 12px 14px;
+    border-radius: var(--br);
+    background: rgba(20,18,32,0.86);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+  }
+  .status-video-progress {
+    width: 100%;
+    height: 5px;
+    margin: 0 0 11px;
+    accent-color: var(--mint);
+    cursor: pointer;
+  }
+  .status-video-toolbar { display: flex; align-items: center; gap: 10px; }
+  .status-video-control {
+    min-width: 42px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--br);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .status-video-control:hover { background: rgba(255,255,255,0.2); }
+  .status-video-control:focus-visible { outline: 3px solid var(--mint); outline-offset: 2px; }
+  .status-video-time { margin-right: auto; font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
   @keyframes tech-float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-4px); }
@@ -144,6 +211,10 @@
     #refleksjon > div:last-child,
     #kontakt { grid-template-columns: 1fr !important; gap: 24px !important; }
     .status-gallery-grid { grid-template-columns: 1fr; }
+    .status-video-controls { right: 8px; bottom: 8px; left: 8px; padding: 9px 10px; }
+    .status-video-toolbar { gap: 6px; }
+    .status-video-control { min-width: 36px; height: 36px; padding: 0 9px; font-size: 13px; }
+    .status-video-time { font-size: 11px; }
     #dagbok > div:last-child > div { grid-template-columns: 1fr !important; gap: 12px !important; }
     #oppgave > p:first-of-type,
     #refleksjon > p:first-of-type { font-size: 30px !important; }
@@ -370,6 +441,22 @@
                 <figcaption>{{ t.status1Photo2 }}</figcaption>
               </a>
             </figure>
+          </div>
+          <div style="position: relative; margin-top: 16px">
+            <video id="status-video" src="./assets/status-video.mp4" playsinline preload="auto" style="display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--br); background: #000; box-shadow: 0 12px 28px -22px rgba(27,17,110,0.65)">
+              Nettleseren din støtter ikke videoavspilling.
+            </video>
+            <button id="status-video-play" class="status-video-play" type="button" onClick="{{ playStatusVideo }}" aria-label="Start video" title="Start video"></button>
+            <div class="status-video-controls" aria-label="Videokontroller">
+              <input id="status-video-progress" class="status-video-progress" type="range" min="0" max="100" step="0.1" value="0" onInput="{{ seekStatusVideo }}" aria-label="Spol i videoen" />
+              <div class="status-video-toolbar">
+                <button id="status-video-toggle" class="status-video-control" type="button" onClick="{{ playStatusVideo }}" aria-label="Start video" title="Start eller pause video">▶</button>
+                <span id="status-video-time" class="status-video-time">0:00 / 0:00</span>
+                <button id="status-video-sound" class="status-video-control" type="button" onClick="{{ toggleStatusVideoSound }}" aria-label="Slå av lyd" title="Lyd av eller på">🔊</button>
+                <button id="status-video-speed" class="status-video-control" type="button" onClick="{{ cycleStatusVideoSpeed }}" aria-label="Endre avspillingshastighet" title="Avspillingshastighet">1x</button>
+                <button class="status-video-control" type="button" onClick="{{ toggleStatusVideoFullscreen }}" aria-label="Vis video i fullskjerm" title="Fullskjerm">⛶</button>
+              </div>
+            </div>
           </div>
         </section>
         <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line)">
@@ -667,6 +754,17 @@ class Component extends DCLogic {
         });
       }
     } catch (e) {}
+    const video = document.getElementById("status-video");
+    if (video) {
+      video.addEventListener("loadedmetadata", this.syncStatusVideoControls);
+      video.addEventListener("timeupdate", this.syncStatusVideoControls);
+      video.addEventListener("play", this.syncStatusVideoControls);
+      video.addEventListener("pause", this.syncStatusVideoControls);
+      video.addEventListener("ended", this.syncStatusVideoControls);
+      video.addEventListener("volumechange", this.syncStatusVideoControls);
+      video.addEventListener("ratechange", this.syncStatusVideoControls);
+      this.syncStatusVideoControls();
+    }
   }
 
   persist(next) {
@@ -677,6 +775,73 @@ class Component extends DCLogic {
     const lang = this.state.lang === "no" ? "en" : "no";
     this.persist({ lang });
     this.setState({ lang });
+  };
+
+  playStatusVideo = () => {
+    const video = document.getElementById("status-video");
+    if (!video) return;
+    if (video.paused || video.ended) video.play().catch(() => {});
+    else video.pause();
+  };
+
+  seekStatusVideo = (event) => {
+    const video = document.getElementById("status-video");
+    const percent = Number(event && event.target ? event.target.value : 0);
+    if (video && Number.isFinite(video.duration)) video.currentTime = video.duration * percent / 100;
+  };
+
+  toggleStatusVideoSound = () => {
+    const video = document.getElementById("status-video");
+    if (video) video.muted = !video.muted;
+  };
+
+  cycleStatusVideoSpeed = () => {
+    const video = document.getElementById("status-video");
+    if (!video) return;
+    const speeds = [1, 1.25, 1.5, 2, 0.75];
+    const current = speeds.indexOf(video.playbackRate);
+    video.playbackRate = speeds[(current + 1) % speeds.length];
+  };
+
+  toggleStatusVideoFullscreen = () => {
+    const video = document.getElementById("status-video");
+    if (!video) return;
+    const container = video.parentElement;
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen();
+    else if (container && container.requestFullscreen) container.requestFullscreen().catch(() => {});
+    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+  };
+
+  formatVideoTime = (seconds) => {
+    if (!Number.isFinite(seconds)) return "0:00";
+    const whole = Math.max(0, Math.floor(seconds));
+    return Math.floor(whole / 60) + ":" + String(whole % 60).padStart(2, "0");
+  };
+
+  syncStatusVideoControls = () => {
+    const video = document.getElementById("status-video");
+    if (!video) return;
+    const centerButton = document.getElementById("status-video-play");
+    const toggle = document.getElementById("status-video-toggle");
+    const sound = document.getElementById("status-video-sound");
+    const speed = document.getElementById("status-video-speed");
+    const progress = document.getElementById("status-video-progress");
+    const time = document.getElementById("status-video-time");
+    const paused = video.paused || video.ended;
+    if (centerButton) centerButton.hidden = !paused || video.currentTime > 0;
+    if (toggle) {
+      toggle.textContent = paused ? "▶" : "❚❚";
+      toggle.setAttribute("aria-label", paused ? "Start video" : "Pause video");
+    }
+    if (sound) {
+      sound.textContent = video.muted || video.volume === 0 ? "🔇" : "🔊";
+      sound.setAttribute("aria-label", video.muted ? "Slå på lyd" : "Slå av lyd");
+    }
+    if (speed) speed.textContent = video.playbackRate + "x";
+    if (progress && Number.isFinite(video.duration) && video.duration > 0) {
+      progress.value = String(video.currentTime / video.duration * 100);
+    }
+    if (time) time.textContent = this.formatVideoTime(video.currentTime) + " / " + this.formatVideoTime(video.duration);
   };
 
   selectWeek = (n) => () => {
@@ -743,6 +908,11 @@ class Component extends DCLogic {
     return {
       t, stack: STACK, goals: GOALS[lang],
       toggleLang: this.toggleLang,
+      playStatusVideo: this.playStatusVideo,
+      seekStatusVideo: this.seekStatusVideo,
+      toggleStatusVideoSound: this.toggleStatusVideoSound,
+      cycleStatusVideoSpeed: this.cycleStatusVideoSpeed,
+      toggleStatusVideoFullscreen: this.toggleStatusVideoFullscreen,
       weeks, activeEntries, activeEmpty: activeEntries.length === 0,
       activeTitle: (lang === "no" ? "Uke " : "Week ") + active,
       activeRange: from.getUTCDate() + ".–" + to.getUTCDate() + ". " + monthName
