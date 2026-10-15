@@ -495,12 +495,13 @@
           <h2 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.01em">Status 2</h2>
           <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.status2When }}</span>
         </div>
-        <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ t.status2Body }}</p>
-        <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; color: var(--ink-2)">
-          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status2P1 }}</li>
-          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status2P2 }}</li>
-          <li style="padding: 12px 16px; background: var(--surface-2); border-radius: var(--br)">{{ t.status2P3 }}</li>
-        </ul>
+        <div style="font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">
+          <p style="margin: 0 0 16px">{{ t.status2Body1 }}</p>
+          <p style="margin: 0 0 16px">{{ t.status2Body2 }}</p>
+          <p style="margin: 0 0 16px">{{ t.status2Body3 }}</p>
+          <p style="margin: 0 0 16px">{{ t.status2Body4 }}</p>
+          <p style="margin: 0">{{ t.status2Body5 }}</p>
+        </div>
       </article>
     </div>
 
@@ -603,7 +604,7 @@ const COPY = {
     taskBody2: "Oppgavene starter i det små — feilretting, mindre forbedringer i eksisterende komponenter og oppsett av utviklingsmiljø — og bygger seg gradvis opp mot større oppgaver med egen funksjonalitet: nye endepunkt, spørringer mot databasen og nye visninger i frontend. Underveis er jeg med på kodegjennomgang, testing og den daglige rytmen i teamet.",
     taskBody3: "Slik det ser ut nå er dette planen. Beskrivelsen oppdateres etter hvert som oppgavene blir tydeligere, og status underveis dokumenteres i Status 1, Status 2 og dagboken.",
     stackTitle: "Teknologi", goalsTitle: "Læringsmål",
-    status1When: "Uke 38", status2When: "Ca. uke 46",
+    status1When: "Uke 38", status2When: "uke 42",
     status1Title: "Om Sikri og praksisen min",
     status1Body1: "Jeg er i praksis hos Sikri, som er et teknologiselskap som utvikler digitale løsninger for offentlig sektor. Sikri lager blant annet systemer for saksbehandling, dokumenthåndtering, arkiv og publisering av offentlig informasjon.",
     status1Body2: "Da jeg startet i praksis, ble jeg introdusert for teamet og fikk en gjennomgang av prosjektet og teknologiene som brukes. Den første uka jobbet jeg med å få på plass nødvendige tilganger til Sikris systemer og verktøy, slik at jeg kunne komme i gang med arbeidet.",
@@ -618,8 +619,11 @@ const COPY = {
     status1Photo2: "Sammen med kolleger hos Sikri",
     status1TechLead: "Teknologier og verktøy jeg jobber med er blant annet:",
     status1Body9: "Jeg synes det er spennende å få jobbe med et ekte prosjekt og få erfaring ved å jobbe tett med dyktige kolleger. Praksisen gjør at jeg får brukt det jeg har lært på skolen i praksis, samtidig som jeg lærer mye nytt om programmering, samarbeid og hvordan større systemer er bygget opp.",
-    status2Body: "Andre statusrapport. Ser på hvordan oppgavene har vokst i omfang, hva jeg har levert, og hva jeg vil prioritere i den siste delen av perioden.",
-    status2P1: "Større oppgaver og egen funksjonalitet", status2P2: "Samarbeid, kodegjennomgang og testing", status2P3: "Veien mot avslutning av perioden",
+    status2Body1: "Siden Status 1 har jeg fått mer erfaring og bedre forståelse for hvordan det er å jobbe som utvikler hos Sikri. Jeg har blitt bedre kjent med teamet, arbeidsoppgavene og teknologiene vi bruker.",
+    status2Body2: "I denne perioden har jeg jobbet med feilretting, testing og forbedring av eksisterende løsninger. Jeg har fått mer erfaring med C# og .NET, og lært mye om hvordan ting fungerer i et større prosjekt.",
+    status2Body3: "Jeg har også prøvd å ta initiativ, bidra aktivt i prosjektet og finne løsninger på egen hånd. Jeg har brukt Jira til å følge opp oppgaver og fått oppleve hvordan utviklere jobber sammen i praksis. Det har vært veldig motiverende å få bidra med egne løsninger og kjenne at jeg faktisk er en del av teamet.",
+    status2Body4: "Noe av det mest utfordrende har vært å sette meg inn i eksisterende kode og forstå hvordan alt henger sammen. Men jeg har fått god hjelp fra kollegaene mine, og merker at jeg blir tryggere og mer selvstendig etter hvert.",
+    status2Body5: "Alt i alt har praksisperioden vært både spennende og lærerik. Det har vært veldig hyggelig å bli kjent med så mange dyktige folk i teamet, og jeg er glad for å ha fått muligheten til å jobbe sammen med dem og lære av erfaringene deres.",
     diaryHint: "Velg uke i tidslinjen for å se loggen. Praksisdagene er torsdag og fredag.",
     diaryEmpty: "Ingen logg lagt inn for denne uken ennå.",
     reflectLead: "Refleksjon skrives mot slutten av perioden.",
@@ -667,8 +671,11 @@ const COPY = {
     status1Photo2: "Together with colleagues at Sikri",
     status1TechLead: "Technologies and tools I work with include:",
     status1Body9: "I find it exciting to work on a real project and gain experience by working closely with skilled colleagues. The internship allows me to apply what I have learned at university while also learning a great deal about programming, collaboration and how larger systems are built.",
-    status2Body: "Second status report. It looks at how the tasks have grown in scope, what I have delivered, and what I want to prioritise in the final part of the period.",
-    status2P1: "Larger tasks and independent features", status2P2: "Collaboration, code review and testing", status2P3: "Towards the end of the period",
+    status2Body1: "Since Status 1, I have gained more experience and a better understanding of what it is like to work as a developer at Sikri. I have become more familiar with the team, the tasks and the technologies we use.",
+    status2Body2: "During this period, I have worked on bug fixes, testing and improvements to existing solutions. I have gained more experience with C# and .NET and learned a great deal about how things work in a larger project.",
+    status2Body3: "I have also tried to take initiative, contribute actively to the project and find solutions on my own. I have used Jira to follow up on tasks and experienced how developers collaborate in practice. It has been very motivating to contribute my own solutions and feel that I am genuinely part of the team.",
+    status2Body4: "One of the most challenging parts has been familiarising myself with the existing code and understanding how everything fits together. However, I have received excellent help from my colleagues, and I can feel that I am gradually becoming more confident and independent.",
+    status2Body5: "All in all, the internship has been both exciting and educational. It has been wonderful getting to know so many skilled people on the team, and I am grateful for the opportunity to work with them and learn from their experience.",
     diaryHint: "Pick a week in the timeline to read the log. Internship days are Thursday and Friday.",
     diaryEmpty: "No log entered for this week yet.",
     reflectLead: "The reflection is written towards the end of the period.",
