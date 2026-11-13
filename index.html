@@ -279,14 +279,6 @@
           <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factPeriod }}</dt>
           <dd style="margin: 0; font-size: 18px; font-weight: 600">{{ t.factPeriodValue }}</dd>
         </div>
-        <div style="background: rgba(27,17,110,0.55); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
-          <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark)">{{ t.factDays }}</dt>
-          <dd style="margin: 0; font-size: 18px; font-weight: 600">{{ t.factDaysValue }}</dd>
-        </div>
-        <div style="background: var(--mint); padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
-          <dt style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink)">{{ t.factHours }}</dt>
-          <dd style="margin: 0; font-size: 18px; font-weight: 700; color: var(--ink)">270 t</dd>
-        </div>
       </dl>
     </div>
   </section>
@@ -377,7 +369,6 @@
               <span style="{{ w.lineStyle }}"></span>
               <span style="{{ w.dotStyle }}"></span>
               <span style="{{ w.labelStyle }}">{{ w.label }}</span>
-              <span style="font-size: 11px; color: var(--ink-2); margin-top: 2px">{{ w.dates }}</span>
             </button>
           </sc-for>
         </div>
@@ -397,7 +388,9 @@
             </div>
             <div>
               <div style="font-size: 16px; font-weight: 600; margin-bottom: 6px">{{ e.title }}</div>
-              <p style="margin: 0 0 10px; font-size: 15px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ e.text }}</p>
+              <sc-for list="{{ e.paragraphs }}" as="paragraph" hint-placeholder-count="2">
+                <p style="margin: 0 0 6px; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty">{{ paragraph }}</p>
+              </sc-for>
               <div style="font-size: 14px; color: var(--ink-2)"><em>{{ e.next }}</em></div>
             </div>
           </div>
@@ -588,7 +581,7 @@ const COPY = {
     heroBadge: "Praksis høst 2026 · Sikri AS",
     heroLead: "Fullstackutvikler i praksis hos Sikri, og siste års bachelorstudent i IT og informasjonssystemer ved UiA Kristiansand.",
     ctaTasks: "Se oppgavebeskrivelse", ctaDiary: "Til dagboken",
-    factCompany: "Bedrift", factRole: "Rolle", factPeriod: "Periode", factPeriodValue: "Uke 35–47 · 2026", factDays: "Dager", factDaysValue: "Torsdag & fredag", factHours: "Omfang",
+    factCompany: "Bedrift", factRole: "Rolle", factPeriod: "Periode", factPeriodValue: "Uke 35–46 · 2026",
     aboutLead: "Jeg heter Amina Mustafa og går siste år på bachelor i IT og informasjonssystemer ved UiA Kristiansand.",
     aboutBody: "Jeg er glad i både koding og design, og trives best når de to henger sammen når en løsning både fungerer teknisk og er god å bruke. Jeg er sosial og liker å jobbe tett med andre, enten det er i utviklingsteam, med testere eller mot folk som faktisk skal bruke systemet. Praksisen hos Sikri er en mulighet til å ta med meg det jeg har lært på studiet inn i et reelt utviklingsmiljø.",
     aboutStudy: "Bachelor i IT og informasjonssystemer, siste år",
@@ -624,7 +617,7 @@ const COPY = {
     status2Body3: "Jeg har også prøvd å ta initiativ, bidra aktivt i prosjektet og finne løsninger på egen hånd. Jeg har brukt Jira til å følge opp oppgaver og fått oppleve hvordan utviklere jobber sammen i praksis. Det har vært veldig motiverende å få bidra med egne løsninger og kjenne at jeg faktisk er en del av teamet.",
     status2Body4: "Noe av det mest utfordrende har vært å sette meg inn i eksisterende kode og forstå hvordan alt henger sammen. Men jeg har fått god hjelp fra kollegaene mine, og merker at jeg blir tryggere og mer selvstendig etter hvert.",
     status2Body5: "Alt i alt har praksisperioden vært både spennende og lærerik. Det har vært veldig hyggelig å bli kjent med så mange dyktige folk i teamet, og jeg er glad for å ha fått muligheten til å jobbe sammen med dem og lære av erfaringene deres.",
-    diaryHint: "Velg uke i tidslinjen for å se loggen. Praksisdagene er torsdag og fredag.",
+    diaryHint: "Velg en uke i tidslinjen for å lese dagboken.",
     diaryEmpty: "Ingen logg lagt inn for denne uken ennå.",
     reflectLead: "Refleksjon skrives mot slutten av perioden.",
     reflectBody1: "Her kommer en samlet refleksjon over praksisperioden: hva jeg har lært om fullstackutvikling i praksis, hvordan det er å jobbe i et team med reelle kunder og krav, og hvordan studiet henger sammen med arbeidshverdagen hos Sikri.",
@@ -640,7 +633,7 @@ const COPY = {
     heroBadge: "Internship autumn 2026 · Sikri AS",
     heroLead: "Fullstack developer intern at Sikri, and final-year bachelor student in IT and Information Systems at UiA Kristiansand.",
     ctaTasks: "Read task description", ctaDiary: "Go to diary",
-    factCompany: "Company", factRole: "Role", factPeriod: "Period", factPeriodValue: "Week 35–47 · 2026", factDays: "Days", factDaysValue: "Thursday & Friday", factHours: "Scope",
+    factCompany: "Company", factRole: "Role", factPeriod: "Period", factPeriodValue: "Week 35–46 · 2026",
     aboutLead: "My name is Amina Mustafa and I am in my final year of the bachelor programme in IT and Information Systems at UiA Kristiansand.",
     aboutBody: "I enjoy both coding and design, and I like it best when the two meet — when a solution works technically and is also good to use. I am social and like working closely with others, whether that is a development team, testers, or the people who actually use the system. The internship at Sikri is a chance to bring what I have learned at university into a real development environment.",
     aboutStudy: "BSc IT and Information Systems, final year",
@@ -676,7 +669,7 @@ const COPY = {
     status2Body3: "I have also tried to take initiative, contribute actively to the project and find solutions on my own. I have used Jira to follow up on tasks and experienced how developers collaborate in practice. It has been very motivating to contribute my own solutions and feel that I am genuinely part of the team.",
     status2Body4: "One of the most challenging parts has been familiarising myself with the existing code and understanding how everything fits together. However, I have received excellent help from my colleagues, and I can feel that I am gradually becoming more confident and independent.",
     status2Body5: "All in all, the internship has been both exciting and educational. It has been wonderful getting to know so many skilled people on the team, and I am grateful for the opportunity to work with them and learn from their experience.",
-    diaryHint: "Pick a week in the timeline to read the log. Internship days are Thursday and Friday.",
+    diaryHint: "Pick a week in the timeline to read the diary.",
     diaryEmpty: "No log entered for this week yet.",
     reflectLead: "The reflection is written towards the end of the period.",
     reflectBody1: "This will hold an overall reflection on the internship: what I learned about fullstack development in practice, what it is like to work in a team with real customers and requirements, and how the studies connect to everyday work at Sikri.",
@@ -743,6 +736,76 @@ const ENTRIES = {
     { dayIdx: 4, time: "", title: "Oppfølgingsstatus: videre arbeid med samme oppgave",
       text: "Jeg fortsatte med den samme oppgaven fra torsdag og undersøkte videre hvordan dataene henger sammen. Oppgaven er fortsatt under arbeid, men jeg har fått en bedre forståelse av hvordan informasjonen blir hentet gjennom systemet og hva jeg må jobbe videre med.",
       next: "" }
+  ],
+  39: [
+    { dayIdx: 3, summary: true, time: "", title: "Vedtaksstatus i Elements Publikum",
+      text: "Denne uken jobbet jeg videre med oppgaven som handler om å vise vedtaksstatus i Elements Publikum.\n\nJeg måtte gjøre endringer flere steder i prosjektet fordi statusen brukes i ulike deler av løsningen. I backend jobbet jeg med repository-et som henter data, mens RegistryEntry-modellen gjør informasjonen tilgjengelig i frontend.\n\nJeg gjorde også endringer i detaljkortene for å vise statusen, oppdaterte oversettelsesfilene og jobbet med tester i spec-filene.\n\nGjennom dette arbeidet fikk jeg bedre forståelse av hvordan frontend og backend henger sammen, og hvordan en endring kan påvirke flere deler av prosjektet.",
+      next: "" }
+  ],
+  40: [
+    { dayIdx: 3, summary: true, time: "", title: "Fra feiloppdagelse til godkjent endring",
+      text: "Denne uken oppdaget jeg en feil mens jeg testet nettsiden i Elements Publikum. Jeg tok kontakt med veilederen min og viste ham problemet. Han ba meg opprette en oppgave i Jira og jobbe videre med feilen.\n\nJeg opprettet oppgaven, undersøkte hva som var feil, og jobbet med løsningen til jeg ble ferdig. Deretter pushet jeg endringene mine til GitHub.\n\nEndringene ble senere godkjent og merget. Vi avtalte også å gjennomføre deployment sammen over Teams, siden veilederen min ikke var på kontoret.\n\nDet var lærerikt å følge en oppgave fra jeg oppdaget feilen, til endringene ble godkjent.",
+      next: "" }
+  ],
+  41: [
+    { dayIdx: 3, summary: true, time: "", title: "PDF-dokumenter med punktum i tittelen",
+      text: "Denne uken begynte jeg på en ny backend-oppgave fra Jira. Oppgaven handlet om en feil der PDF-dokumenter med punktum i tittelen ble lastet ned i stedet for å åpnes direkte i nettleseren.\n\nJeg startet med å lese oppgavebeskrivelsen og undersøke problemet i Elements Publikum. Jeg brukte Developer Tools i Chrome, spesielt Network-fanen, for å se på forespørsler og svar fra backend.\n\nUnderveis lærte jeg mer om HTTP-responser og forskjellen mellom application/pdf og application/octet-stream. Jeg undersøkte også hvordan PDF-dokumentene blir hentet fra backend, men hadde ennå ikke funnet den riktige forespørselen.",
+      next: "Planen videre var å finne årsaken til feilen, undersøke MimeTypeFinder.cs og deretter jobbe med løsningen og testing." }
+  ],
+  42: [
+    { dayIdx: 1, time: "", title: "Videre arbeid med PDF-oppgaven",
+      text: "Jeg fortsatte å jobbe med PDF-oppgaven fra forrige uke. Jeg gjorde flere endringer i koden og testet dem underveis for å sjekke om feilen var løst.",
+      next: "" },
+    { dayIdx: 2, time: "", title: "Testing og pull request",
+      text: "Jeg trengte litt hjelp fra en kollega som har god erfaring med prosjektet. Vi jobbet sammen med å opprette en sak som kunne brukes til testing, og sjekket at resultatet ble som forventet.\n\nDa jeg var ferdig med endringene, opprettet jeg en pull request (PR) på GitHub og la til veilederen min som reviewer, slik at han kunne gå gjennom koden.\n\nDet var nyttig å få hjelp og lære hvordan andre i teamet undersøker og løser problemer.",
+      next: "" }
+  ],
+  43: [
+    { dayIdx: 0, time: "", title: "Nye avklaringer for vedtaksstatus",
+      text: "Jeg jobbet hjemmefra med oppgaven om vedtaksstatus. Etter nye avklaringer måtte jeg gjøre flere endringer i løsningen. Den skulle nå støtte flere vedtaksstatuser per saksframlegg og knytte riktig status til riktig møte eller behandling.\n\nJeg begynte derfor å undersøke OData-modellen for å forstå hvordan dataene henger sammen, og hva som måtte endres i backend og frontend.",
+      next: "" },
+    { dayIdx: 3, time: "", title: "Tilpasning av løsningen og ny feil",
+      text: "Jeg fortsatte å undersøke OData-modellen og jobbet med å tilpasse løsningen. Underveis fikk jeg en ny feil som gjorde at jeg ikke kunne fortsette som planlagt.\n\nJeg måtte derfor bruke tid på å undersøke og prøve å løse feilen før jeg kunne jobbe videre med oppgaven.",
+      next: "" },
+    { dayIdx: 4, time: "", title: "Problemløsing sammen med en kollega",
+      text: "Jeg hadde fortsatt utfordringer med feilen og tok derfor kontakt med en kollega for å få hjelp.\n\nDet var nyttig å diskutere problemet med noen som hadde mer erfaring med prosjektet. Jeg fikk bedre forståelse av hvordan jeg kunne gå videre med løsningen.",
+      next: "" }
+  ],
+  44: [
+    { dayIdx: 2, time: "", title: "Byggefeil i backend",
+      text: "Jeg jobbet videre med oppgaven om vedtaksstatus og gjorde flere endringer i backend. Da jeg skulle bygge prosjektet på nytt for å teste endringene, fikk jeg en feil.\n\nJeg prøvde først å undersøke problemet selv, men trengte hjelp fra en kollega på kontoret. Vi gikk gjennom feilen sammen og klarte å løse den. Etterpå kunne jeg fortsette arbeidet med oppgaven.",
+      next: "" },
+    { dayIdx: 3, time: "", title: "Flere statuser i backend",
+      text: "Jeg fortsatte med endringene i backend. Jeg måtte blant annet endre noen metoder slik at de kunne håndtere en samling (collection) av statuser i stedet for én enkelt status.\n\nJeg testet endringene og vurderte hvordan løsningen skulle fungere videre. Dette hjalp meg med å forstå mer av hvordan data håndteres i backend.",
+      next: "" },
+    { dayIdx: 4, time: "", title: "Feilende tester etter push",
+      text: "Jeg pushet endringene mine til GitHub, men oppdaget at flere tester feilet. Derfor måtte jeg gå tilbake til koden, undersøke feilene og gjøre nye endringer.\n\nJeg brukte flere timer på å finne ut hva som var galt og rette opp problemene. Til slutt klarte jeg å få testene til å bestå og pushet endringene på nytt.\n\nDet var en utfordrende dag, men jeg var fornøyd med at jeg klarte å løse problemene og komme videre med oppgaven.",
+      next: "" }
+  ],
+  45: [
+    { dayIdx: 0, time: "", title: "Ny oppgave i SkipLink-komponenten",
+      text: "Jeg fikk en ny oppgave fra veilederen min. Oppgaven handlet om å fikse en feil i SkipLink-komponenten, som er skrevet i TypeScript.\n\nMålet var å forbedre universell utforming på nettsiden, slik at brukerne lettere kan navigere med tastatur.",
+      next: "" },
+    { dayIdx: 2, time: "", title: "Testing av SkipLink",
+      text: "Jeg jobbet videre med SkipLink-komponenten og testet endringene mine for å sjekke at løsningen fungerte som forventet.\n\nJeg fikk også bedre forståelse av hvor viktig universell utforming er i utvikling av nettsider.",
+      next: "" },
+    { dayIdx: 3, time: "", title: "Tilbakemeldinger på pull request",
+      text: "Jeg gikk gjennom tilbakemeldingene fra veilederen min på pull requesten og gjorde de siste forbedringene i koden.\n\nEtterpå testet jeg endringene på nytt. PR-en var klar og ventet på godkjenning før den kunne merges.",
+      next: "" },
+    { dayIdx: 4, time: "", title: "Ny oppgave",
+      text: "Jeg fikk en ny oppgave fra veilederen min og begynte å sette meg inn i hva som skulle gjøres.",
+      next: "" }
+  ],
+  46: [
+    { dayIdx: 0, time: "", title: "Forbedringer etter tilbakemeldinger",
+      text: "I dag var jeg på kontoret for å jobbe videre med en oppgave jeg hadde jobbet med tidligere. Jeg gikk gjennom tilbakemeldingene fra veilederen min og fortsatte med å forbedre løsningen.",
+      next: "" },
+    { dayIdx: 3, time: "", title: "Nødvendige endringer og testing",
+      text: "Jeg var på kontoret for å fortsette arbeidet med oppgaven og fullføre de resterende praksistimene mine. Jeg jobbet med å gjøre de nødvendige endringene og testet løsningen for å sjekke at alt fungerte som forventet.",
+      next: "" },
+    { dayIdx: 4, time: "", title: "Avslutning av praksisperioden",
+      text: "I dag var jeg på kontoret for å jobbe videre med oppgaven og fullføre flere av praksistimene mine. Jeg fortsatte med forbedringene og gikk gjennom arbeidet mitt.\n\nSiden praksisperioden snart er ferdig, har jeg også begynt å tenke tilbake på alt jeg har lært. Det har vært en lærerik periode der jeg har fått jobbe med ekte utviklingsoppgaver og samarbeide med erfarne utviklere.",
+      next: "" }
   ]
 };
 
@@ -757,7 +820,7 @@ class Component extends DCLogic {
         const w = Number(s.week);
         this.setState({
           lang: s.lang === "en" ? "en" : "no",
-          week: w >= 35 && w <= 47 ? w : 35,
+          week: w >= 35 && w <= 46 ? w : 35,
         });
       }
     } catch (e) {}
@@ -876,12 +939,11 @@ class Component extends DCLogic {
     const active = this.state.week;
 
     const weeks = [];
-    for (let n = 35 ; n <= 47; n++) {
+    for (let n = 35 ; n <= 46; n++) {
       const isActive = n === active;
       const has = !!ENTRIES[n];
       weeks.push({
         label: (lang === "no" ? "Uke " : "Week ") + n,
-        dates: this.dateFor(n, 3).getUTCDate() + ".–" + this.dateFor(n, 4).getUTCDate() + ".",
         select: this.selectWeek(n),
         btnStyle: {
           position: "relative", flex: "1 0 92px", display: "flex", flexDirection: "column",
@@ -890,7 +952,7 @@ class Component extends DCLogic {
         },
         lineStyle: {
           position: "absolute", top: "23px", left: n === 35 ? "50%" : "0",
-          right: n === 47 ? "50%" : "0", height: "2px", background: "var(--line)"
+          right: n === 46 ? "50%" : "0", height: "2px", background: "var(--line)"
         },
         dotStyle: {
           position: "relative", width: isActive ? "16px" : "12px", height: isActive ? "16px" : "12px",
@@ -911,11 +973,14 @@ class Component extends DCLogic {
       : ["Monday","Tuesday","Wednesday","Thursday","Friday"];
     const activeEntries = raw.map(e => {
       const d = this.dateFor(active, e.dayIdx);
-      return { day: dayNames[e.dayIdx], date: this.fmt(d, lang), time: e.time, title: e.title, text: e.text, next: e.next };
+      return {
+        day: e.summary ? (lang === "no" ? "Ukeoppsummering" : "Weekly summary") : dayNames[e.dayIdx],
+        date: e.summary ? "" : this.fmt(d, lang),
+        time: e.time, title: e.title, paragraphs: e.text.split("\n\n"), next: e.next
+      };
     });
 
-    const from = this.dateFor(active, 3), to = this.dateFor(active, 4);
-    const monthName = lang === "no" ? MONTHS_NO[to.getUTCMonth()] : MONTHS_EN[to.getUTCMonth()];
+    const from = this.dateFor(active, 0), to = this.dateFor(active, 4);
 
     return {
       t, stack: STACK, goals: GOALS[lang],
@@ -926,8 +991,10 @@ class Component extends DCLogic {
       cycleStatusVideoSpeed: this.cycleStatusVideoSpeed,
       toggleStatusVideoFullscreen: this.toggleStatusVideoFullscreen,
       weeks, activeEntries, activeEmpty: activeEntries.length === 0,
-      activeTitle: (lang === "no" ? "Uke " : "Week ") + active,
-      activeRange: from.getUTCDate() + ".–" + to.getUTCDate() + ". " + monthName
+      activeTitle: active === 46
+        ? (lang === "no" ? "Uke 46 – Siste praksisuke" : "Week 46 – Final internship week")
+        : (lang === "no" ? "Uke " : "Week ") + active,
+      activeRange: this.fmt(from, lang) + "–" + this.fmt(to, lang)
     };
   }
 }
