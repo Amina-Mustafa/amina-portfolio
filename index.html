@@ -387,7 +387,6 @@
               <div style="font-size: 12px; color: var(--ink); font-weight: 600; margin-top: 8px">{{ e.time }}</div>
             </div>
             <div>
-              <div style="font-size: 16px; font-weight: 600; margin-bottom: 6px">{{ e.title }}</div>
               <sc-for list="{{ e.paragraphs }}" as="paragraph" hint-placeholder-count="2">
                 <p style="margin: 0 0 6px; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty">{{ paragraph }}</p>
               </sc-for>
@@ -504,9 +503,10 @@
         <h2 style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); font-weight: 700">{{ t.navReflection }}</h2>
       </div>
       <p style="margin: 0 0 22px; font-family: 'Archivo Black', Archivo, sans-serif; font-size: 38px; line-height: 1.25; letter-spacing: -1px; max-width: 26ch">{{ t.reflectLead }}</p>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px">
-        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty">{{ t.reflectBody1 }}</p>
-        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: var(--ink-2); text-wrap: pretty">{{ t.reflectBody2 }}</p>
+      <div style="display: grid; gap: 12px; max-width: 82ch">
+        <sc-for list="{{ t.reflectParagraphs }}" as="paragraph" hint-placeholder-count="4">
+          <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty">{{ paragraph }}</p>
+        </sc-for>
       </div>
     </article>
 
@@ -619,9 +619,17 @@ const COPY = {
     status2Body5: "Alt i alt har praksisperioden vært både spennende og lærerik. Det har vært veldig hyggelig å bli kjent med så mange dyktige folk i teamet, og jeg er glad for å ha fått muligheten til å jobbe sammen med dem og lære av erfaringene deres.",
     diaryHint: "Velg en uke i tidslinjen for å lese dagboken.",
     diaryEmpty: "Ingen logg lagt inn for denne uken ennå.",
-    reflectLead: "Refleksjon skrives mot slutten av perioden.",
-    reflectBody1: "Her kommer en samlet refleksjon over praksisperioden: hva jeg har lært om fullstackutvikling i praksis, hvordan det er å jobbe i et team med reelle kunder og krav, og hvordan studiet henger sammen med arbeidshverdagen hos Sikri.",
-    reflectBody2: "Jeg vil også se på hva jeg ville gjort annerledes, hvilke ferdigheter jeg vil jobbe videre med etter praksisen, og hva erfaringen betyr for veien videre etter bacheloren.",
+    reflectLead: "Avsluttende refleksjon",
+    reflectParagraphs: [
+      "Praksisperioden hos Sikri har vært en spennende og lærerik opplevelse. Jeg har fått muligheten til å være en del av et utviklingsteam og oppleve hvordan det er å jobbe som fullstack-utvikler i en IT-bedrift. Det har vært veldig nyttig å få bruke det jeg har lært gjennom studiet i praksis, samtidig som jeg har lært mange nye ting.",
+      "Gjennom praksisperioden har jeg jobbet med både frontend og backend i Elements Publikum. Jeg har blant annet jobbet med feilretting, forbedring av brukergrensesnittet og testing. Jeg har fått mer erfaring med React, TypeScript og C#, og lært mer om hvordan de ulike delene av et system henger sammen. Jeg har også forstått hvor viktig det er å teste det man lager, slik at alt fungerer som det skal.",
+      "I starten syntes jeg det var utfordrende å sette meg inn i et stort prosjekt med mye kode og nye teknologier. Noen ganger brukte jeg lang tid på å forstå hvordan jeg skulle løse en oppgave. Etter hvert ble jeg tryggere på å finne fram i koden og prøve å løse problemer på egen hånd. Jeg har lært at det er viktig å være tålmodig, prøve seg fram og ikke gi opp når noe er vanskelig.",
+      "Jeg har også lært mye av å samarbeide med andre. Veilederen min og resten av teamet har gitt meg gode tilbakemeldinger og hjulpet meg når jeg har stått fast. Gjennom møter, pull requests og kodegjennomganger har jeg fått se hvordan utviklere jobber sammen. Jeg har også lært at det er viktig å stille spørsmål, dele tanker og være åpen for tilbakemeldinger.",
+      "Det beste med praksisperioden har vært å få jobbe med ekte utviklingsoppgaver og være en del av et hyggelig team. Alle har vært hyggelige og hjelpsomme, og jeg har fått god støtte når jeg har hatt spørsmål eller trengt hjelp. Det har gjort at jeg har trivdes godt og følt meg tryggere i arbeidet mitt.",
+      "Når jeg ser tilbake på praksisperioden, er det noen ting jeg ville gjort annerledes. Jeg skulle gjerne vært mer aktiv i møter og stilt flere spørsmål fra starten av. Samtidig har jeg lært mye av utfordringene jeg har møtt, og jeg føler at jeg har blitt mer selvstendig underveis.",
+      "Jeg synes praksis er en veldig fin mulighet for studenter som ønsker å få erfaring fra arbeidslivet. Man får jobbe med ekte prosjekter, samarbeide med et team og bruke kunnskapen fra studiet. Praksis handler ikke bare om å få erfaring, men også om å bli kjent med en bedrift, møte nye mennesker og bygge nettverk innen IT-bransjen. Dette kan være nyttig når man senere skal søke jobb.",
+      "Til slutt har praksisperioden hos Sikri gitt meg mange gode erfaringer, både faglig og personlig. Jeg har lært mye om hvordan det er å jobbe som utvikler, og jeg har blitt tryggere på meg selv og det jeg kan. Praksisen har også gjort meg enda mer motivert til å fortsette å lære og utvikle meg innen IT. Jeg er veldig takknemlig for muligheten jeg har fått hos Sikri, og for all hjelp og støtte fra veilederen min og resten av teamet. Dette er en erfaring jeg kommer til å ta med meg videre i studiene og arbeidslivet."
+    ],
     contactLead: "Spørsmål om praksisen, oppgavene eller nettstedet? Ta gjerne kontakt.",
     contactUia: "Studiested", contactCompany: "Praksisbedrift",
     footerCourse: "Praksis i informasjonssystemer, UiA 2026",
@@ -671,9 +679,17 @@ const COPY = {
     status2Body5: "All in all, the internship has been both exciting and educational. It has been wonderful getting to know so many skilled people on the team, and I am grateful for the opportunity to work with them and learn from their experience.",
     diaryHint: "Pick a week in the timeline to read the diary.",
     diaryEmpty: "No log entered for this week yet.",
-    reflectLead: "The reflection is written towards the end of the period.",
-    reflectBody1: "This will hold an overall reflection on the internship: what I learned about fullstack development in practice, what it is like to work in a team with real customers and requirements, and how the studies connect to everyday work at Sikri.",
-    reflectBody2: "I will also look at what I would do differently, which skills I want to keep working on after the internship, and what the experience means for the road after the bachelor's degree.",
+    reflectLead: "Final reflection",
+    reflectParagraphs: [
+      "My internship at Sikri has been an exciting and educational experience. I have had the opportunity to be part of a development team and experience what it is like to work as a full-stack developer in an IT company. It has been very useful to apply what I have learned during my studies while also learning many new things.",
+      "During the internship, I worked with both the frontend and backend of Elements Publikum. My work included bug fixes, user-interface improvements and testing. I gained more experience with React, TypeScript and C#, and learned more about how the different parts of a system are connected. I also came to understand how important it is to test what you build so that everything works as intended.",
+      "At first, I found it challenging to familiarise myself with a large project containing a great deal of code and new technologies. Sometimes it took me a long time to understand how to solve a task. Over time, I became more confident navigating the code and trying to solve problems independently. I learned that it is important to be patient, experiment and not give up when something is difficult.",
+      "I also learned a great deal from collaborating with others. My supervisor and the rest of the team gave me helpful feedback and supported me whenever I got stuck. Through meetings, pull requests and code reviews, I saw how developers work together. I also learned how important it is to ask questions, share ideas and remain open to feedback.",
+      "The best part of the internship was working on real development tasks and being part of a welcoming team. Everyone was friendly and helpful, and I received excellent support whenever I had questions or needed assistance. This made the experience enjoyable and helped me feel more confident in my work.",
+      "Looking back on the internship, there are some things I would have done differently. I would have liked to participate more actively in meetings and ask more questions from the beginning. At the same time, I learned a great deal from the challenges I faced and feel that I became more independent along the way.",
+      "I believe an internship is an excellent opportunity for students who want experience from working life. You get to work on real projects, collaborate with a team and apply knowledge from your studies. An internship is not only about gaining experience, but also about getting to know a company, meeting new people and building a network in the IT industry. This can be valuable when applying for jobs later.",
+      "In conclusion, my internship at Sikri has given me many valuable experiences, both professionally and personally. I have learned a great deal about working as a developer and have become more confident in myself and my abilities. The internship has also made me even more motivated to continue learning and developing within IT. I am very grateful for the opportunity Sikri gave me, and for all the help and support from my supervisor and the rest of the team. This is an experience I will carry with me throughout my studies and working life."
+    ],
     contactLead: "Questions about the internship, the tasks or this site? Feel free to get in touch.",
     contactUia: "University", contactCompany: "Host company",
     footerCourse: "Internship in Information Systems, UiA 2026",
@@ -718,93 +734,93 @@ const ENTRIES = {
   ],
   36: [
     { dayIdx: 3, time: "", title: "Testfeil og testoppsett",
-      text: "I dag undersøkte jeg noen testfeil knyttet til en Pull Request. Jeg kjørte testene lokalt og sjekket at prosjektet bygget som det skulle. Jeg jobbet også videre med testoppsettet for å kunne teste løsningen bedre før jeg sender inn endringer.",
+      text: "Dagen startet med undersøkelse av noen testfeil knyttet til en Pull Request. Deretter kjørte jeg testene lokalt og sjekket at prosjektet bygget som det skulle. Videre jobbet jeg med testoppsettet for å kunne teste løsningen bedre før jeg sender inn endringer.",
       next: "" },
     { dayIdx: 4, time: "", title: "Pull Request og oppfølgingsstatus",
-      text: "I dag jobbet jeg videre med prosjektet og gjorde endringer i en Pull Request. Jeg lærte mer om hvordan Git, branches, commits og Pull Requests henger sammen, og hvordan endringer blir oppdatert når jeg jobber videre på samme branch. Jeg begynte også å undersøke oppgaven med å vise oppfølgingsstatus for vedtak i Publikum. Jeg så på hvordan statusen fungerer i systemet i dag, og hvordan informasjonen kan hentes og vises videre. Jeg har ikke løst hele oppgaven ennå, men har fått en bedre forståelse av problemet og hva jeg må undersøke videre.",
+      text: "Arbeidet med prosjektet fortsatte med endringer i en Pull Request. Underveis lærte jeg mer om hvordan Git, branches, commits og Pull Requests henger sammen, og hvordan endringer blir oppdatert når jeg jobber videre på samme branch. Dagen ble også brukt til å undersøke oppgaven med å vise oppfølgingsstatus for vedtak i Publikum. Jeg så på hvordan statusen fungerer i systemet i dag, og hvordan informasjonen kan hentes og vises videre. Oppgaven var ennå ikke ferdig, men arbeidet ga meg en bedre forståelse av problemet og hva som måtte undersøkes videre.",
       next: "" }
   ],
   37: [
     { dayIdx: 3, time: "", title: "Oppfølgingsstatus: backend og frontend",
-      text: "I denne uka jobbet jeg videre med oppgaven om å vise oppfølgingsstatus for vedtak i Publikum. Jeg undersøkte hvordan informasjonen om status blir hentet fra backend og sendt videre til frontend. Jeg gjorde noen nødvendige endringer i modellene og undersøkte hvordan lignende informasjon allerede blir håndtert i prosjektet.",
+      text: "Denne uka fortsatte arbeidet med oppgaven om å vise oppfølgingsstatus for vedtak i Publikum. Først undersøkte jeg hvordan informasjonen om status blir hentet fra backend og sendt videre til frontend. Deretter gjorde jeg noen nødvendige endringer i modellene og så på hvordan lignende informasjon allerede blir håndtert i prosjektet.",
       next: "" }
   ],
   38: [
     { dayIdx: 3, time: "", title: "Oppfølgingsstatus: undersøkelse av datakilden",
-      text: "Jeg jobbet videre med oppgaven om å vise oppfølgingsstatus for vedtak i Publikum. Underveis oppdaget jeg at informasjonen jeg trenger ikke ligger der jeg først forventet. Derfor brukte jeg tid på å undersøke datakilden og hvordan informasjonen blir hentet gjennom systemet.",
+      text: "Arbeidet med oppgaven om å vise oppfølgingsstatus for vedtak i Publikum fortsatte. Underveis oppdaget jeg at informasjonen jeg trengte ikke lå der jeg først forventet. Derfor brukte jeg tid på å undersøke datakilden og hvordan informasjonen blir hentet gjennom systemet.",
       next: "" },
     { dayIdx: 4, time: "", title: "Oppfølgingsstatus: videre arbeid med samme oppgave",
-      text: "Jeg fortsatte med den samme oppgaven fra torsdag og undersøkte videre hvordan dataene henger sammen. Oppgaven er fortsatt under arbeid, men jeg har fått en bedre forståelse av hvordan informasjonen blir hentet gjennom systemet og hva jeg må jobbe videre med.",
+      text: "Fredagen fortsatte med den samme oppgaven fra torsdag og en nærmere undersøkelse av hvordan dataene henger sammen. Oppgaven var fortsatt under arbeid, men jeg fikk en bedre forståelse av hvordan informasjonen blir hentet gjennom systemet og hva som måtte gjøres videre.",
       next: "" }
   ],
   39: [
     { dayIdx: 3, summary: true, time: "", title: "Vedtaksstatus i Elements Publikum",
-      text: "Denne uken jobbet jeg videre med oppgaven som handler om å vise vedtaksstatus i Elements Publikum.\n\nJeg måtte gjøre endringer flere steder i prosjektet fordi statusen brukes i ulike deler av løsningen. I backend jobbet jeg med repository-et som henter data, mens RegistryEntry-modellen gjør informasjonen tilgjengelig i frontend.\n\nJeg gjorde også endringer i detaljkortene for å vise statusen, oppdaterte oversettelsesfilene og jobbet med tester i spec-filene.\n\nGjennom dette arbeidet fikk jeg bedre forståelse av hvordan frontend og backend henger sammen, og hvordan en endring kan påvirke flere deler av prosjektet.",
+      text: "Denne uken jobbet jeg videre med oppgaven som handler om å vise vedtaksstatus i Elements Publikum.\n\nFordi statusen brukes i ulike deler av løsningen, måtte det gjøres endringer flere steder i prosjektet. I backend jobbet jeg med repository-et som henter data, mens RegistryEntry-modellen gjør informasjonen tilgjengelig i frontend.\n\nDetaljkortene ble også endret for å vise statusen, samtidig som oversettelsesfilene og testene i spec-filene ble oppdatert.\n\nArbeidet ga meg bedre forståelse av hvordan frontend og backend henger sammen, og hvordan en endring kan påvirke flere deler av prosjektet.",
       next: "" }
   ],
   40: [
     { dayIdx: 3, summary: true, time: "", title: "Fra feiloppdagelse til godkjent endring",
-      text: "Denne uken oppdaget jeg en feil mens jeg testet nettsiden i Elements Publikum. Jeg tok kontakt med veilederen min og viste ham problemet. Han ba meg opprette en oppgave i Jira og jobbe videre med feilen.\n\nJeg opprettet oppgaven, undersøkte hva som var feil, og jobbet med løsningen til jeg ble ferdig. Deretter pushet jeg endringene mine til GitHub.\n\nEndringene ble senere godkjent og merget. Vi avtalte også å gjennomføre deployment sammen over Teams, siden veilederen min ikke var på kontoret.\n\nDet var lærerikt å følge en oppgave fra jeg oppdaget feilen, til endringene ble godkjent.",
+      text: "Denne uken oppdaget jeg en feil mens nettsiden i Elements Publikum ble testet. Etter at veilederen min hadde sett problemet, ba han meg opprette en oppgave i Jira og jobbe videre med feilen.\n\nDeretter opprettet jeg oppgaven, undersøkte hva som var feil og jobbet med løsningen til den var ferdig. Endringene ble så pushet til GitHub.\n\nSenere ble endringene godkjent og merget. Vi avtalte også å gjennomføre deployment sammen over Teams, siden veilederen min ikke var på kontoret.\n\nDet var lærerikt å følge en oppgave fra feilen ble oppdaget til endringene ble godkjent.",
       next: "" }
   ],
   41: [
     { dayIdx: 3, summary: true, time: "", title: "PDF-dokumenter med punktum i tittelen",
-      text: "Denne uken begynte jeg på en ny backend-oppgave fra Jira. Oppgaven handlet om en feil der PDF-dokumenter med punktum i tittelen ble lastet ned i stedet for å åpnes direkte i nettleseren.\n\nJeg startet med å lese oppgavebeskrivelsen og undersøke problemet i Elements Publikum. Jeg brukte Developer Tools i Chrome, spesielt Network-fanen, for å se på forespørsler og svar fra backend.\n\nUnderveis lærte jeg mer om HTTP-responser og forskjellen mellom application/pdf og application/octet-stream. Jeg undersøkte også hvordan PDF-dokumentene blir hentet fra backend, men hadde ennå ikke funnet den riktige forespørselen.",
+      text: "Denne uken begynte jeg på en ny backend-oppgave fra Jira. Oppgaven handlet om en feil der PDF-dokumenter med punktum i tittelen ble lastet ned i stedet for å åpnes direkte i nettleseren.\n\nFørst leste jeg oppgavebeskrivelsen og undersøkte problemet i Elements Publikum. Developer Tools i Chrome, spesielt Network-fanen, ble brukt for å se på forespørsler og svar fra backend.\n\nUnderveis lærte jeg mer om HTTP-responser og forskjellen mellom application/pdf og application/octet-stream. Det ble også undersøkt hvordan PDF-dokumentene blir hentet fra backend, men den riktige forespørselen var ennå ikke funnet.",
       next: "Planen videre var å finne årsaken til feilen, undersøke MimeTypeFinder.cs og deretter jobbe med løsningen og testing." }
   ],
   42: [
     { dayIdx: 1, time: "", title: "Videre arbeid med PDF-oppgaven",
-      text: "Jeg fortsatte å jobbe med PDF-oppgaven fra forrige uke. Jeg gjorde flere endringer i koden og testet dem underveis for å sjekke om feilen var løst.",
+      text: "Arbeidet med PDF-oppgaven fra forrige uke fortsatte. Flere endringer ble gjort i koden og testet underveis for å sjekke om feilen var løst.",
       next: "" },
     { dayIdx: 2, time: "", title: "Testing og pull request",
-      text: "Jeg trengte litt hjelp fra en kollega som har god erfaring med prosjektet. Vi jobbet sammen med å opprette en sak som kunne brukes til testing, og sjekket at resultatet ble som forventet.\n\nDa jeg var ferdig med endringene, opprettet jeg en pull request (PR) på GitHub og la til veilederen min som reviewer, slik at han kunne gå gjennom koden.\n\nDet var nyttig å få hjelp og lære hvordan andre i teamet undersøker og løser problemer.",
+      text: "Underveis trengte jeg litt hjelp fra en kollega som har god erfaring med prosjektet. Sammen opprettet vi en sak som kunne brukes til testing, og sjekket at resultatet ble som forventet.\n\nDa endringene var ferdige, opprettet jeg en pull request (PR) på GitHub og la til veilederen min som reviewer, slik at han kunne gå gjennom koden.\n\nSamarbeidet var nyttig og viste meg hvordan andre i teamet undersøker og løser problemer.",
       next: "" }
   ],
   43: [
     { dayIdx: 0, time: "", title: "Nye avklaringer for vedtaksstatus",
-      text: "Jeg jobbet hjemmefra med oppgaven om vedtaksstatus. Etter nye avklaringer måtte jeg gjøre flere endringer i løsningen. Den skulle nå støtte flere vedtaksstatuser per saksframlegg og knytte riktig status til riktig møte eller behandling.\n\nJeg begynte derfor å undersøke OData-modellen for å forstå hvordan dataene henger sammen, og hva som måtte endres i backend og frontend.",
+      text: "Mandagen jobbet jeg hjemmefra med oppgaven om vedtaksstatus. Etter nye avklaringer måtte det gjøres flere endringer i løsningen. Den skulle nå støtte flere vedtaksstatuser per saksframlegg og knytte riktig status til riktig møte eller behandling.\n\nFor å forstå hvordan dataene henger sammen, begynte jeg å undersøke OData-modellen og hva som måtte endres i backend og frontend.",
       next: "" },
     { dayIdx: 3, time: "", title: "Tilpasning av løsningen og ny feil",
-      text: "Jeg fortsatte å undersøke OData-modellen og jobbet med å tilpasse løsningen. Underveis fikk jeg en ny feil som gjorde at jeg ikke kunne fortsette som planlagt.\n\nJeg måtte derfor bruke tid på å undersøke og prøve å løse feilen før jeg kunne jobbe videre med oppgaven.",
+      text: "Torsdagen fortsatte undersøkelsen av OData-modellen og arbeidet med å tilpasse løsningen. Underveis oppstod en ny feil som gjorde at arbeidet ikke kunne fortsette som planlagt.\n\nFeilen måtte derfor undersøkes og forsøkes løst før oppgaven kunne tas videre.",
       next: "" },
     { dayIdx: 4, time: "", title: "Problemløsing sammen med en kollega",
-      text: "Jeg hadde fortsatt utfordringer med feilen og tok derfor kontakt med en kollega for å få hjelp.\n\nDet var nyttig å diskutere problemet med noen som hadde mer erfaring med prosjektet. Jeg fikk bedre forståelse av hvordan jeg kunne gå videre med løsningen.",
+      text: "Utfordringene med feilen fortsatte, og derfor tok jeg kontakt med en kollega for å få hjelp.\n\nSamtalen med en mer erfaren kollega var nyttig og ga meg bedre forståelse av hvordan løsningen kunne tas videre.",
       next: "" }
   ],
   44: [
     { dayIdx: 2, time: "", title: "Byggefeil i backend",
-      text: "Jeg jobbet videre med oppgaven om vedtaksstatus og gjorde flere endringer i backend. Da jeg skulle bygge prosjektet på nytt for å teste endringene, fikk jeg en feil.\n\nJeg prøvde først å undersøke problemet selv, men trengte hjelp fra en kollega på kontoret. Vi gikk gjennom feilen sammen og klarte å løse den. Etterpå kunne jeg fortsette arbeidet med oppgaven.",
+      text: "Arbeidet med oppgaven om vedtaksstatus fortsatte med flere endringer i backend. Da prosjektet skulle bygges på nytt for å teste endringene, oppstod en feil.\n\nFørst forsøkte jeg å undersøke problemet selv, men trengte hjelp fra en kollega på kontoret. Sammen gikk vi gjennom feilen og klarte å løse den, slik at arbeidet med oppgaven kunne fortsette.",
       next: "" },
     { dayIdx: 3, time: "", title: "Flere statuser i backend",
-      text: "Jeg fortsatte med endringene i backend. Jeg måtte blant annet endre noen metoder slik at de kunne håndtere en samling (collection) av statuser i stedet for én enkelt status.\n\nJeg testet endringene og vurderte hvordan løsningen skulle fungere videre. Dette hjalp meg med å forstå mer av hvordan data håndteres i backend.",
+      text: "Endringene i backend fortsatte. Blant annet måtte noen metoder tilpasses slik at de kunne håndtere en samling (collection) av statuser i stedet for én enkelt status.\n\nEtter testingen vurderte jeg hvordan løsningen skulle fungere videre. Dette ga meg bedre forståelse av hvordan data håndteres i backend.",
       next: "" },
     { dayIdx: 4, time: "", title: "Feilende tester etter push",
-      text: "Jeg pushet endringene mine til GitHub, men oppdaget at flere tester feilet. Derfor måtte jeg gå tilbake til koden, undersøke feilene og gjøre nye endringer.\n\nJeg brukte flere timer på å finne ut hva som var galt og rette opp problemene. Til slutt klarte jeg å få testene til å bestå og pushet endringene på nytt.\n\nDet var en utfordrende dag, men jeg var fornøyd med at jeg klarte å løse problemene og komme videre med oppgaven.",
+      text: "Etter at endringene var pushet til GitHub, oppdaget jeg at flere tester feilet. Derfor måtte koden gjennomgås på nytt for å finne feilene og gjøre nødvendige endringer.\n\nFlere timer gikk med til å finne årsaken og rette opp problemene. Til slutt bestod testene, og endringene kunne pushes på nytt.\n\nSelv om dagen var utfordrende, var det tilfredsstillende å løse problemene og komme videre med oppgaven.",
       next: "" }
   ],
   45: [
     { dayIdx: 0, time: "", title: "Ny oppgave i SkipLink-komponenten",
-      text: "Jeg fikk en ny oppgave fra veilederen min. Oppgaven handlet om å fikse en feil i SkipLink-komponenten, som er skrevet i TypeScript.\n\nMålet var å forbedre universell utforming på nettsiden, slik at brukerne lettere kan navigere med tastatur.",
+      text: "Mandagen fikk jeg en ny oppgave fra veilederen min. Oppgaven handlet om å fikse en feil i SkipLink-komponenten, som er skrevet i TypeScript.\n\nMålet var å forbedre universell utforming på nettsiden, slik at brukerne lettere kan navigere med tastatur.",
       next: "" },
     { dayIdx: 2, time: "", title: "Testing av SkipLink",
-      text: "Jeg jobbet videre med SkipLink-komponenten og testet endringene mine for å sjekke at løsningen fungerte som forventet.\n\nJeg fikk også bedre forståelse av hvor viktig universell utforming er i utvikling av nettsider.",
+      text: "Arbeidet med SkipLink-komponenten fortsatte, og endringene ble testet for å sjekke at løsningen fungerte som forventet.\n\nUnderveis fikk jeg bedre forståelse av hvor viktig universell utforming er i utvikling av nettsider.",
       next: "" },
     { dayIdx: 3, time: "", title: "Tilbakemeldinger på pull request",
-      text: "Jeg gikk gjennom tilbakemeldingene fra veilederen min på pull requesten og gjorde de siste forbedringene i koden.\n\nEtterpå testet jeg endringene på nytt. PR-en var klar og ventet på godkjenning før den kunne merges.",
+      text: "Tilbakemeldingene fra veilederen min på pull requesten ble gjennomgått, og de siste forbedringene ble gjort i koden.\n\nEtterpå testet jeg endringene på nytt. PR-en var klar og ventet på godkjenning før den kunne merges.",
       next: "" },
     { dayIdx: 4, time: "", title: "Ny oppgave",
-      text: "Jeg fikk en ny oppgave fra veilederen min og begynte å sette meg inn i hva som skulle gjøres.",
+      text: "Fredagen fikk jeg en ny oppgave fra veilederen min og begynte å sette meg inn i hva som skulle gjøres.",
       next: "" }
   ],
   46: [
     { dayIdx: 0, time: "", title: "Forbedringer etter tilbakemeldinger",
-      text: "I dag var jeg på kontoret for å jobbe videre med en oppgave jeg hadde jobbet med tidligere. Jeg gikk gjennom tilbakemeldingene fra veilederen min og fortsatte med å forbedre løsningen.",
+      text: "Mandagen ble brukt på kontoret til å jobbe videre med en tidligere oppgave. Tilbakemeldingene fra veilederen min ble gjennomgått før arbeidet med å forbedre løsningen fortsatte.",
       next: "" },
     { dayIdx: 3, time: "", title: "Nødvendige endringer og testing",
-      text: "Jeg var på kontoret for å fortsette arbeidet med oppgaven og fullføre de resterende praksistimene mine. Jeg jobbet med å gjøre de nødvendige endringene og testet løsningen for å sjekke at alt fungerte som forventet.",
+      text: "Torsdagen fortsatte arbeidet med oppgaven på kontoret. De nødvendige endringene ble gjort, og løsningen ble testet for å sjekke at alt fungerte som forventet.",
       next: "" },
     { dayIdx: 4, time: "", title: "Avslutning av praksisperioden",
-      text: "I dag var jeg på kontoret for å jobbe videre med oppgaven og fullføre flere av praksistimene mine. Jeg fortsatte med forbedringene og gikk gjennom arbeidet mitt.\n\nSiden praksisperioden snart er ferdig, har jeg også begynt å tenke tilbake på alt jeg har lært. Det har vært en lærerik periode der jeg har fått jobbe med ekte utviklingsoppgaver og samarbeide med erfarne utviklere.",
+      text: "På den siste praksisdagen jobbet jeg videre med oppgaven og fullførte de siste praksistimene mine. Forbedringene fortsatte, og arbeidet ble gjennomgått en siste gang.\n\nNår praksisperioden er ferdig, er det naturlig å se tilbake på alt jeg har lært. Det har vært en lærerik periode med ekte utviklingsoppgaver og samarbeid med erfarne utviklere.",
       next: "" }
   ]
 };
@@ -976,7 +992,7 @@ class Component extends DCLogic {
       return {
         day: e.summary ? (lang === "no" ? "Ukeoppsummering" : "Weekly summary") : dayNames[e.dayIdx],
         date: e.summary ? "" : this.fmt(d, lang),
-        time: e.time, title: e.title, paragraphs: e.text.split("\n\n"), next: e.next
+        time: e.time, paragraphs: e.text.split("\n\n"), next: e.next
       };
     });
 
